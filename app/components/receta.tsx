@@ -52,13 +52,13 @@ function getListaIngredientes(grpIng: IIngredientesGrupo[]) {
                                     {grp.Ingredientes.map((ingrediente, index) => {
                                         return (
                                             <div key={index}>
-                                                <li key={4 * index}>
+                                                <li key={index}>
                                                     <Typography paragraph variant="body2">
                                                         {ingrediente.Nombre} ({ingrediente.Cantidad} {ingrediente.Unidad})
                                                     </Typography>
                                                 </li>
                                                 {/*
-                                                    <li key={4 * index + 3}> Sustituto: {ingrediente.Sustituto}</li>
+                                                    <li key={index}> Sustituto: {ingrediente.Sustituto}</li>
                                                     */}
                                             </div>
                                         )

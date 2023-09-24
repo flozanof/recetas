@@ -31,7 +31,7 @@ const MyPaper = styled(Paper)(({ theme }) => ({
     padding: '5px'
 }));
 
-function getListaIngredientes(grpIng: IIngredientesGrupo[]) {
+function getListaIngredientes(grpIng: IIngredientesGrupo[], changeEvent: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>) {
     if (grpIng.length > 0) {
         return (
             <>
@@ -44,17 +44,19 @@ function getListaIngredientes(grpIng: IIngredientesGrupo[]) {
                                         autoFocus
                                         margin="dense"
                                         id="ingGrupo"
+                                        name="Grupo"
                                         label="Nombre Grupo"
                                         fullWidth
                                         variant="outlined"
                                         defaultValue={grp.Grupo}
+                                        onChange={changeEvent}
                                     />
                                 }
                                 <ul>
                                     {grp.Ingredientes.map((ingrediente, index) => {
                                         return (
                                             <div key={index}>
-                                                <li key={4 * index}>
+                                                <li key={index}>
                                                     <TextField
                                                         autoFocus
                                                         margin="dense"
@@ -132,7 +134,7 @@ function getListaElaboracion(elaboraciones: IElaboracion[]) {
                                 defaultValue={elaboracion.Paso}
                             />
                         </li>
-                        <li key="{2 * index}">
+                        <li key="{(2 * index) + 1}">
                             <TextField
                                 autoFocus
                                 margin="dense"
@@ -155,6 +157,7 @@ export default function RecetaForm(props: IRecipeProps) {
     //    const [recipe, setRecipe] = React.useState<IReceta>({ Nombre: '', Foto: '', Comensales: 0, Dificultad: 0, TiempoCoccion: 0, TiempoElaboracion: 0, TecnicaElaboracion: '', IngredientesGrupo: [], Elaboracion: [], Notas: ['una', 'dos'] });
     const [recipe, setRecipe] = React.useState<IReceta>(props.receta);
     const [open, setOpen] = React.useState(true);
+    const [nameFile, setNameFile] = React.useState("");
 
     const handleClose = () => {
         setOpen(false);
@@ -162,19 +165,38 @@ export default function RecetaForm(props: IRecipeProps) {
     };
 
     function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+        console.log("Modificación datos: " + event.target.name + " - " + event.target.value)
         const { name, value } = event.target;
         setRecipe({ ...recipe, [name]: value });
+        console.log("Nuevos comensales: " + recipe.Comensales);
+        console.log("Nueva dificultad: " + recipe.Dificultad);
     }
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
     }
 
-    const { downloadFile } = useDownloadFile({
-        fileName: "prueba.xml",
-        format: "json",
-        data: `<svg><circle cx="50" cy="50" r="40"fill="red" /></svg>`,
+    function getFormJsonData() {
+        return JSON.stringify(recipe);
+    }
+
+    const { linkProps } = useDownloadFile({
+        fileName: 'prueba.json',
+        format: "application/json",
+        data: `{"hola": "hoooola"}`,
     });
+
+    const { downloadFile } = useDownloadFile({
+        fileName: "prueba.json",
+        format: "image/svg+xml",
+        data: getFormJsonData(),
+    });
+
+    function saveFile() {
+        console.log("******* Entra en saveFile *******");
+        setNameFile("Prueba2.json");
+        downloadFile();
+    }
 
     if (recipe.Nombre) {
         return (
@@ -200,29 +222,35 @@ export default function RecetaForm(props: IRecipeProps) {
                                         autoFocus
                                         margin="dense"
                                         id="nombre"
+                                        name="Nombre"
                                         label="Nombre"
                                         fullWidth
                                         multiline
                                         variant="outlined"
                                         defaultValue={props.receta.Nombre}
+                                        onChange={handleInputChange}
                                     />
                                     <TextField
                                         autoFocus
                                         margin="dense"
                                         id="foto"
+                                        name="Foto"
                                         label="Foto"
                                         fullWidth
                                         variant="outlined"
                                         defaultValue={props.receta.Foto}
+                                        onChange={handleInputChange}
                                     />
                                     <TextField
                                         autoFocus
                                         margin="dense"
                                         id="comensales"
+                                        name="Comensales"
                                         label="Comensales"
                                         type="number"
                                         variant="outlined"
                                         defaultValue={props.receta.Comensales}
+                                        onChange={handleInputChange}
                                         sx={{
                                             '& > :not(style)': { m: 1, width: '11ch' },
                                         }}
@@ -231,10 +259,12 @@ export default function RecetaForm(props: IRecipeProps) {
                                         autoFocus
                                         margin="dense"
                                         id="dificultad"
+                                        name='Dificultad'
                                         label="Dificultad"
                                         type="number"
                                         variant="outlined"
                                         defaultValue={props.receta.Dificultad}
+                                        onChange={handleInputChange}
                                         sx={{
                                             '& > :not(style)': { m: 1, width: '9ch' },
                                         }}
@@ -243,10 +273,12 @@ export default function RecetaForm(props: IRecipeProps) {
                                         autoFocus
                                         margin="dense"
                                         id="tiempoElaboracion"
+                                        name="TiempoElaboracion"
                                         label="Tiempo Elaboración"
                                         type="number"
                                         variant="outlined"
                                         defaultValue={props.receta.TiempoElaboracion}
+                                        onChange={handleInputChange}
                                         sx={{
                                             '& > :not(style)': { m: 1, width: '17ch' },
                                         }}
@@ -255,10 +287,12 @@ export default function RecetaForm(props: IRecipeProps) {
                                         autoFocus
                                         margin="dense"
                                         id="tiempoCoccion"
+                                        name="TiempoCoccion"
                                         label="Tiempo Cocción"
                                         type="number"
                                         variant="outlined"
                                         defaultValue={props.receta.TiempoCoccion}
+                                        onChange={handleInputChange}
                                         sx={{
                                             '& > :not(style)': { m: 1, width: '14ch' },
                                         }}
@@ -267,9 +301,11 @@ export default function RecetaForm(props: IRecipeProps) {
                                         autoFocus
                                         margin="dense"
                                         id="tecnicaElaboracion"
+                                        name="TecnicaElaboracion"
                                         label="Técnica Elaboración"
                                         variant="outlined"
                                         defaultValue={props.receta.TecnicaElaboracion}
+                                        onChange={handleInputChange}
                                         sx={{
                                             '& > :not(style)': { m: 1, width: '17ch' },
                                         }}
@@ -281,7 +317,7 @@ export default function RecetaForm(props: IRecipeProps) {
                                     <Typography paragraph variant="h6" align='center'>
                                         INGREDIENTES
                                     </Typography>
-                                    {getListaIngredientes(props.receta.IngredientesGrupo)}
+                                    {getListaIngredientes(props.receta.IngredientesGrupo, handleInputChange)}
                                 </MyPaper>
                             </Grid>
                             <Grid md={6} xl={4}>
@@ -298,7 +334,9 @@ export default function RecetaForm(props: IRecipeProps) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={downloadFile}>Download</Button>
+                    <Button onClick={saveFile}>Download File</Button>
+                    {/*<a {...linkProps}>Download SVG File</a>;*/}
+                    {/*<Button onClick={() => download(fileUrl, filename)}>Download</Button>*/}
                 </DialogActions>
             </Dialog>
         )

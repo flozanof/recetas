@@ -50,11 +50,7 @@
                 {
                     "Nombre": "Jerez",
                     "Cantidad": 2,
-                    "Unidad": "Cucharada",
-                    "Sustituto": [
-                        "Miel",
-                        "Mandarina"
-                    ]
+                    "Unidad": "Cucharada"
                 },
                 {
                     "Nombre": "Ajo",

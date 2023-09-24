@@ -26,4 +26,5 @@ export interface IReceta {
     IngredientesGrupo: IIngredientesGrupo[];
     Elaboracion: IElaboracion[];
     Notas: string[];
+    getJSON: () => string;
 }

@@ -1,0 +1,85 @@
+{
+    "Nombre": "Contramuslos de pollo marinados con soja",
+    "Foto": "ContramuslosPolloSoja.jpg",
+    "Comensales": 4,
+    "Dificultad": 2,
+    "TiempoCoccion": 30,
+    "TiempoElaboracion": 120,
+    "TecnicaElaboracion": "Horno",
+    "IngredientesGrupo": [
+        {
+            "Grupo": "Principal",
+            "Ingredientes": [
+                {
+                    "Nombre": "Contramuslo pollo",
+                    "Cantidad": 8,
+                    "Unidad": "Unidad",
+                    "Sustituto": [
+                        "Trasero pollo"
+                    ]
+                },
+                {
+                    "Nombre": "Arroz",
+                    "Cantidad": 3,
+                    "Unidad": "Taza"
+                }
+            ]
+        },
+        {
+            "Grupo": "Marinada",
+            "Ingredientes": [
+                {
+                    "Nombre": "Soja",
+                    "Cantidad": 10,
+                    "Unidad": "Cucharada"
+                },
+                {
+                    "Nombre": "Zumo limón",
+                    "Cantidad": 2,
+                    "Unidad": "Cucharada"
+                },
+                {
+                    "Nombre": "Zumo naranja",
+                    "Cantidad": 0.5,
+                    "Unidad": "Unidad",
+                    "Sustituto": [
+                        "Miel",
+                        "Mandarina"
+                    ]
+                },
+                {
+                    "Nombre": "Jerez",
+                    "Cantidad": 2,
+                    "Unidad": "Cucharada",
+                    "Sustituto": [
+                        "Miel",
+                        "Mandarina"
+                    ]
+                },
+                {
+                    "Nombre": "Ajo",
+                    "Cantidad": 2,
+                    "Unidad": "Unidad"
+                }
+            ]
+        }
+    ],
+    "Elaboracion": [
+        {
+            "Paso": 1,
+            "Descripcion": "Marinada: mezclar los ingredientes de la marinada en un cuenco. Vierte la mitad del preparado en una fuente, coloca el pollo encima y riégalo en el resto. Tápalo y déjalo reposar 2 horas."
+        },
+        {
+            "Paso": 2,
+            "Descripcion": "Precaliente el horno a 200 ºC y hornea el pollo durante 20 minutos con la piel hacia arriba. Úntalo con aceite y cuécelo 10 minutos más."
+        },
+        {
+            "Paso": 3,
+            "Descripcion": "Cuando esté hecho, sirve el pollo con el arroz caliente."
+        }
+    ],
+    "Notas": [
+        "En horno siemens poner función 'Grill con aire caliente' (dibujo grill con una turbina).",
+        "Saltea el arroz con los jugos de cocción del pollo. Quedará mucho más sabroso."
+    ]
+}

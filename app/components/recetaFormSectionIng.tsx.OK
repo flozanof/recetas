@@ -1,0 +1,34 @@
+import React from "react";
+import { IIngrediente } from '../interfaces/Types';
+import { UseFormRegister, FieldValues } from "react-hook-form";
+
+interface IFormProps {
+    ingredientes: IIngrediente[];
+    register: UseFormRegister<FieldValues>;
+}
+
+export default function RecetaFormSectionIng(props: IFormProps) {
+    console.log(props.ingredientes[0].Nombre);
+    return (
+        <>
+            {props.ingredientes.map((ingrediente, index) => {
+                return (
+                    <div key={index}>
+                        <div className="form-control">
+                            <label>Nombre:</label>
+                            <input defaultValue={ingrediente.Nombre} type='text' {...props.register("NombreIng" + index)} />
+                        </div>
+                        <div className="form-control">
+                            <label>Cantidad:</label>
+                            <input type='text' defaultValue={ingrediente.Cantidad} {...props.register("CantidadIng" + index)} />
+                        </div>
+                        <div className="form-control">
+                            <label>Unidad:</label>
+                            <input type='text' defaultValue={ingrediente.Unidad} {...props.register("UnidadIng" + index)} />
+                        </div>
+                    </div>
+                )
+            })}
+        </>
+    );
+}

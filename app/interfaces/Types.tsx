@@ -5,9 +5,9 @@ export interface IIngrediente {
     Sustituto: string[];
 }
 
-export interface IIngredientesGrupo {
+export interface IIngredienteGrupo {
     Grupo: string;
-    Ingredientes: IIngrediente[];
+    IngredientesRef: number[];
 }
 
 export interface IElaboracion {
@@ -23,8 +23,8 @@ export interface IReceta {
     TiempoCoccion: number;
     TiempoElaboracion: number;
     TecnicaElaboracion: string;
-    IngredientesGrupo: IIngredientesGrupo[];
+    IngredientesGrupo: IIngredienteGrupo[];
     Elaboracion: IElaboracion[];
     Notas: string[];
-    getJSON: () => string;
+    Ingredientes: IIngrediente[];
 }

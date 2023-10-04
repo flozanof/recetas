@@ -9,55 +9,11 @@
     "IngredientesGrupo": [
         {
             "Grupo": "Principal",
-            "Ingredientes": [
-                {
-                    "Nombre": "Contramuslo pollo",
-                    "Cantidad": 8,
-                    "Unidad": "Unidad",
-                    "Sustituto": [
-                        "Trasero pollo"
-                    ]
-                },
-                {
-                    "Nombre": "Arroz",
-                    "Cantidad": 3,
-                    "Unidad": "Taza"
-                }
-            ]
+            "IngredientesRef": [ 0, 1]
         },
         {
             "Grupo": "Marinada",
-            "Ingredientes": [
-                {
-                    "Nombre": "Soja",
-                    "Cantidad": 10,
-                    "Unidad": "Cucharada"
-                },
-                {
-                    "Nombre": "Zumo limón",
-                    "Cantidad": 2,
-                    "Unidad": "Cucharada"
-                },
-                {
-                    "Nombre": "Zumo naranja",
-                    "Cantidad": 0.5,
-                    "Unidad": "Unidad",
-                    "Sustituto": [
-                        "Miel",
-                        "Mandarina"
-                    ]
-                },
-                {
-                    "Nombre": "Jerez",
-                    "Cantidad": 2,
-                    "Unidad": "Cucharada"
-                },
-                {
-                    "Nombre": "Ajo",
-                    "Cantidad": 2,
-                    "Unidad": "Unidad"
-                }
-            ]
+            "IngredientesRef": [2, 3, 4, 5, 6]
         }
     ],
     "Elaboracion": [
@@ -77,5 +33,49 @@
     "Notas": [
         "En horno siemens poner función 'Grill con aire caliente' (dibujo grill con una turbina).",
         "Saltea el arroz con los jugos de cocción del pollo. Quedará mucho más sabroso."
+    ],
+    "Ingredientes": [
+        {
+            "Nombre": "Contramuslo pollo",
+            "Cantidad": 8,
+            "Unidad": "Unidad",
+            "Sustituto": [
+                "Trasero pollo"
+            ]
+        },
+        {
+            "Nombre": "Arroz",
+            "Cantidad": 3,
+            "Unidad": "Taza"
+        },
+        {
+            "Nombre": "Soja",
+            "Cantidad": 10,
+            "Unidad": "Cucharada"
+        },
+        {
+            "Nombre": "Zumo limón",
+            "Cantidad": 2,
+            "Unidad": "Cucharada"
+        },
+        {
+            "Nombre": "Zumo naranja",
+            "Cantidad": 0.5,
+            "Unidad": "Unidad",
+            "Sustituto": [
+                "Miel",
+                "Mandarina"
+            ]
+        },
+        {
+            "Nombre": "Jerez",
+            "Cantidad": 2,
+            "Unidad": "Cucharada"
+        },
+        {
+            "Nombre": "Ajo",
+            "Cantidad": 2,
+            "Unidad": "Unidad"
+        }
     ]
 }

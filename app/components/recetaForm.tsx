@@ -35,41 +35,6 @@ const MyPaper = styled(Paper)(({ theme }) => ({
 
 
 
-function getListaElaboracion(elaboraciones: IElaboracion[]) {
-    return (
-        <ul>
-            {elaboraciones.map((elaboracion, index) => {
-                return (
-                    <div key={index}>
-                        <li key="{2 * index}">
-                            <TextField
-                                margin="dense"
-                                id="paso"
-                                label="Paso"
-                                type="number"
-                                fullWidth
-                                variant="outlined"
-                                defaultValue={elaboracion.Paso}
-                            />
-                        </li>
-                        <li key="{(2 * index) + 1}">
-                            <TextField
-                                margin="dense"
-                                id="descripcion"
-                                label="Descripcion"
-                                multiline
-                                fullWidth
-                                variant="outlined"
-                                defaultValue={elaboracion.Descripcion}
-                            />
-                        </li>
-                    </div>
-                )
-            })}
-        </ul>
-    )
-}
-
 function getFormJsonData(recipe: IReceta) {
     console.log("*************** GET FORM JSON DATA ************");
     return JSON.stringify(recipe);

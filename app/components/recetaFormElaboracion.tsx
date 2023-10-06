@@ -13,7 +13,6 @@ export default function RecetaFormElaboracion(props: { control: any; register: a
         <div>
             <label>Pasos:</label>
             {fields.map((item, index) => {
-                console.log(item.Paso);
                 return (
                     <div key={item.id} style={{ marginLeft: 20 }}>
                         <input

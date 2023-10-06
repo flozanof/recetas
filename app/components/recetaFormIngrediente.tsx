@@ -26,16 +26,10 @@ export default function RecetaFormIngredientes(props: { indexGrp: number; contro
                     </div>
                 );
             })}
-            <button
-                type="button"
-                onClick={() =>
-                    append({
-                        field1: "field1",
-                        field2: "field2"
-                    })
-                }
-            >
-                Append Nested
+            <button type="button"
+                style={{ backgroundColor: "#555", borderRadius: "4px", padding: "0px 29px 0px", marginBottom: "10px" }}
+                onClick={() => append({ field1: "field1", field2: "field2" })}>
+                Añadir Ingrediente
             </button>
 
             <hr />

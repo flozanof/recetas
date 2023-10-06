@@ -9,7 +9,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { IReceta, IIngredienteGrupo, IIngrediente, IElaboracion } from '../interfaces/Types';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import styled from '@mui/material/styles/styled';
 import { useDownloadFile } from "react-downloadfile-hook";
@@ -233,8 +233,9 @@ export default function RecetaForm(props: IRecipeProps) {
                     </DialogContentText>
                     <Box sx={{ width: '100%' }}>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <Grid container spacing={2}>
-                                <Grid md={12} xl={3}>
+                        <Box sx={{ flexGrow: 1, p: "5px 15px 15px 15px" }} >
+                            <Grid container spacing={2} >
+                                <Grid item md={6} xl={3}>
                                     <MyPaper className='form' elevation={3}>
                                         <label>DATOS GENÉRICOS</label>
                                         {/*
@@ -290,6 +291,7 @@ export default function RecetaForm(props: IRecipeProps) {
                             </Grid>
         */}
                             </Grid>
+                            </Box>
                         </form>
                     </Box>
                 </DialogContent>

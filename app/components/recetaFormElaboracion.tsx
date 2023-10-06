@@ -1,29 +1,34 @@
 import React from "react";
 import { IReceta, IIngrediente } from '../interfaces/Types';
 import { UseFormGetValues, useFieldArray } from "react-hook-form";
-import Ingredientes from "./recetaFormIngrediente"
 
-export default function RecetaFormGrupoIngr(props: { control: any; register: any; getValues: UseFormGetValues<IReceta>; setValue: any }) {
+export default function RecetaFormElaboracion(props: { control: any; register: any; getValues: UseFormGetValues<IReceta>; setValue: any }) {
     const { control, register, getValues } = props;
     const { fields, remove, append } = useFieldArray({
         control,
-        name: `IngredientesGrupo`
+        name: `Elaboracion`
     });
 
     return (
         <div>
-            {fields.map((item, indexGrp) => {
+            <label>Pasos:</label>
+            {fields.map((item, index) => {
+                console.log(item.Paso);
                 return (
                     <div key={item.id} style={{ marginLeft: 20 }}>
-                        <label>Grupo:</label>
                         <input
-                            {...register(`IngredientesGrupo.${indexGrp}.Grupo`, {
+                            type="number"
+                            {...register(`Elaboracion.${index}.Paso`, {
                                 required: true
                             })}
                             style={{ marginRight: "25px" }}
                         />
-
-                        <Ingredientes  {...{ indexGrp, control, register, getValues }} />
+                        <input
+                            {...register(`Elaboracion.${index}.Descripcion`, {
+                                required: true
+                            })}
+                            style={{ marginRight: "25px" }}
+                        />
                     </div>
                 );
             })}
@@ -31,9 +36,8 @@ export default function RecetaFormGrupoIngr(props: { control: any; register: any
             <button type="button"
                 style={{ backgroundColor: "#555", borderRadius: "4px", padding: "0px 29px 0px", marginBottom: "10px" }}
                 onClick={() => append({ field1: "field1", field2: "field2" })}>
-                Añadir Grupo
+                Añadir Elaboración
             </button>
-
             <hr />
         </div>
     );

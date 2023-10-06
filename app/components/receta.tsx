@@ -73,9 +73,10 @@ export default function Receta(props: RecipeProps) {
         receta.Notas.forEach((nota) => { console.log(nota) })
     };
 
-    function Ingrediente( props: {
-        grpIng: IIngredienteGrupo[]; 
-        ingredientes: IIngrediente[];} ) {
+    function Ingrediente(props: {
+        grpIng: IIngredienteGrupo[];
+        ingredientes: IIngrediente[];
+    }) {
         if (props.grpIng.length > 0) {
             return (
                 <>
@@ -109,15 +110,15 @@ export default function Receta(props: RecipeProps) {
             )
         }
     }
-    
-    function Elaboracion({ elaboracion } : { elaboracion: IElaboracion[] }) {
+
+    function Elaboracion({ elaboracion }: { elaboracion: IElaboracion[] }) {
         return (
             <ul>
                 {elaboracion.map((paso, index) => {
                     return (
-                        <div key ={index}>
+                        <div key={index}>
                             <li key="1 +{index}">
-                            <Typography paragraph variant="body2">Paso: {paso.Paso}</Typography>
+                                <Typography paragraph variant="body2">Paso: {paso.Paso}</Typography>
                             </li>
                             <li key="2 + {index}">
                                 <Typography paragraph variant="body2">{paso.Descripcion}</Typography>
@@ -132,7 +133,7 @@ export default function Receta(props: RecipeProps) {
     return (
         <div >
             {editMode
-                ? <RecetaForm mode="U" fileNameRecipe="ContramuslosPolloSoja.json" receta={receta} handleEditMode = {() => handleEditMode()}/>
+                ? <RecetaForm mode="U" fileNameRecipe="ContramuslosPolloSoja.json" receta={receta} handleEditMode={() => handleEditMode()} />
                 :
                 <Card sx={{ maxWidth: 345 }}>
                     {/* Esto iba dentro de CardHeader
@@ -190,11 +191,11 @@ export default function Receta(props: RecipeProps) {
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <CardContent>
                             <Typography key="-1" paragraph variant='subtitle1'>Ingredientes:</Typography>
-                            <Ingrediente grpIng={receta.IngredientesGrupo} ingredientes= {receta.Ingredientes} />
+                            <Ingrediente grpIng={receta.IngredientesGrupo} ingredientes={receta.Ingredientes} />
                             <Typography key="-2" paragraph variant='subtitle1'>Elaboración:</Typography>
                             <Elaboracion elaboracion={receta.Elaboracion} />
                             <Typography key="-3" paragraph variant='subtitle1'>Notas:</Typography>
-{/*
+                            {/*
                             {receta.Notas.map((aaa, index) => {
                                 return (
                                     <Typography key={index} paragraph variant="body2">{aaa}</Typography>)

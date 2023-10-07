@@ -47,6 +47,7 @@ export default function Receta(props: RecipeProps) {
 
     // Recuperamos información del cocinero de la API.
     useEffect(() => {
+        console.log("Componente Receta: " + props.filename);
         fetch('recetas/' + props.filename
             , {
                 headers: {
@@ -102,7 +103,7 @@ export default function Receta(props: RecipeProps) {
                         component="img"
                         height="194"
                         image={receta.Foto}
-                        alt="Paella dish"
+                        alt="Foto receta"
                     />
                     <CardContent>
                         <ul>

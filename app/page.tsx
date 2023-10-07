@@ -1,11 +1,28 @@
 'use client';
+import React from 'react';
 import { useState } from 'react';
 import Receta from "./components/receta";
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import RecetaForm from './components/recetaForm';
-import nuevaReceta from '../public/recetas/NuevaReceta.json'
+import nuevaReceta from '../public/recetas/prototipo/NuevaReceta.json'
 import Grid from '@mui/material/Grid';
+
+const images = require.context('../public/recetas', false);
+//const imageList = images.keys().map(image => images(image));
+
+function getRecetas() {
+    return (
+        <div>
+    {images.keys().filter(nombre => nombre.endsWith('.json')).map((receta, index  ) => {
+        console.log(receta);
+        return (
+        <Receta key={index} filename={receta} />
+        );
+    })}
+    </div>
+    );
+}
 
 export default function Home() {
     const [newRecipe, setNewRecipe] = useState(false);
@@ -32,25 +49,7 @@ export default function Home() {
                     <div  >
                         <Grid container spacing={2} >
                             <Grid item md={6} lg={4} xl={3}>
-                                <Receta filename="ContramuslosPolloSoja.json" />
-                            </Grid>
-                            <Grid item md={6} lg={4} xl={3}>
-                                <Receta filename="ContramuslosPolloSoja.json" />
-                            </Grid>
-                            <Grid item md={6} lg={4} xl={3}>
-                                <Receta filename="ContramuslosPolloSoja.json" />
-                            </Grid>
-                            <Grid item md={6} lg={4} xl={3}>
-                                <Receta filename="ContramuslosPolloSoja.json" />
-                            </Grid>
-                            <Grid item md={6} lg={4} xl={3}>
-                                <Receta filename="ContramuslosPolloSoja.json" />
-                            </Grid>
-                            <Grid item md={6} lg={4} xl={3}>
-                                <Receta filename="ContramuslosPolloSoja.json" />
-                            </Grid>
-                            <Grid item md={6} lg={4} xl={3}>
-                                <Receta filename="ContramuslosPolloSoja.json" />
+                                {getRecetas()}
                             </Grid>
                         </Grid>
                     </div>

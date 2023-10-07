@@ -26,5 +26,4 @@ export interface IReceta {
     IngredientesGrupo: IIngredienteGrupo[];
     Elaboracion: IElaboracion[];
     Notas: string[];
-    Ingredientes: IIngrediente[];
 }

@@ -1,0 +1,20 @@
+{
+    "Nombre": "Nombre",
+    "IngredientesGrupo": [
+        {
+            "Grupo": "Nombre",
+            "Ingredientes": [
+                {
+                }
+            ]
+        }
+    ],
+    "Elaboracion": [
+        {
+            "Paso": 1,
+            "Descripcion": ""
+        }
+    ],
+    "Notas": [
+    ]
+}

@@ -1,6 +1,9 @@
 import React from "react";
 import { IReceta, IIngrediente } from '../interfaces/Types';
 import { UseFormGetValues, useFieldArray } from "react-hook-form";
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function RecetaFormNotas(props: { control: any; register: any; getValues: UseFormGetValues<IReceta>; setValue: any }) {
     const { control, register, getValues } = props;
@@ -20,15 +23,25 @@ export default function RecetaFormNotas(props: { control: any; register: any; ge
                             })}
                             style={{ marginRight: "25px" }}
                         />
+                        <Button
+                            variant="outlined"
+                            startIcon={<DeleteIcon />}
+                            size="small"
+                            sx={{ marginTop: "-30px" }}
+                            onClick={() => { remove(index) }}
+                        >
+                            Delete
+                        </Button>
                     </div>
                 );
             })}
-
-            <button type="button"
-                style={{ backgroundColor: "#555", borderRadius: "4px", padding: "0px 29px 0px", marginBottom: "10px" }}
-                onClick={() => append({ field1: "field1", field2: "field2" })}>
+            <Button
+                variant="outlined"
+                startIcon={<AddIcon />}
+                onClick={() => { append('') }}
+            >
                 Añadir Nota
-            </button>
+            </Button>
             <hr />
         </div>
     );

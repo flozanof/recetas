@@ -1,13 +1,15 @@
 import React from "react";
 import { useFieldArray } from "react-hook-form";
 import Grid from '@mui/material/Grid';
-
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 function getIndex(id: number) {
 
 }
 
-export default function RecetaFormIngredientesUpdt(props: {indexGrp: number, control: any; register: any }) {
+export default function RecetaFormIngredientesUpdt(props: { indexGrp: number, control: any; register: any }) {
     const { indexGrp, control, register } = props;
     const { fields, remove, append } = useFieldArray({
         control,
@@ -49,19 +51,27 @@ export default function RecetaFormIngredientesUpdt(props: {indexGrp: number, con
                                     />
                                 </Grid>
                                 <Grid item md={6} lg={6} xl={6}>
-                                    <button type="button"
-                                        style={{ backgroundColor: "#555", borderRadius: "4px", padding: "0px 29px 0px", marginBottom: "10px" }}
-                                        onClick={() => {
-                                            remove(index)
-                                        }}>
-                                        Delete Nested
-                                    </button>
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={<DeleteIcon />}
+                                        sx={{ marginBottom: "25px" }}
+                                        onClick={() => { remove(index) }}
+                                    >
+                                        Delete
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </div>
                     );
                 })
             }
+            <Button
+                variant="outlined"
+                startIcon={<AddIcon />}
+                onClick={() => { append({}) }}
+            >
+                Añadir Ingrediente
+            </Button>
         </div>
     );
 

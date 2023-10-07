@@ -1,5 +1,5 @@
 'use client';
-import { use, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -14,10 +14,11 @@ import { red } from '@mui/material/colors';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditIcon from '@mui/icons-material/Edit';
-import { IIngrediente, IReceta } from '../interfaces/Types';
-import { IIngredienteGrupo } from '../interfaces/Types';
-import { IElaboracion } from '../interfaces/Types';
+import { IReceta } from '../interfaces/Types';
 import RecetaForm from './recetaForm';
+import Ingrediente from './ingrediente';
+import Elaboracion from './elaboracion';
+import Nota from './nota';
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -72,63 +73,6 @@ export default function Receta(props: RecipeProps) {
         setExpanded(!expanded);
         receta.Notas.forEach((nota) => { console.log(nota) })
     };
-
-    function Ingrediente(props: {
-        grpIng: IIngredienteGrupo[];
-        ingredientes: IIngrediente[];
-    }) {
-        if (props.grpIng.length > 0) {
-            return (
-                <>
-                    {
-                        props.grpIng.map((grp, grpIndex) => {
-                            return (
-                                <div key={grpIndex}>
-                                    {((props.grpIng.length > 1)) && <Typography paragraph variant="body2">{grp.Grupo}</Typography>}
-                                    <ul>
-                                        {grp.IngredientesRef.map((index) => {
-                                            return (
-                                                <div key={index}>
-                                                    <li key={index}>
-                                                        <Typography paragraph variant="body2">
-                                                            {props.ingredientes[index].Nombre} ({props.ingredientes[index].Cantidad} {props.ingredientes[index].Unidad})
-                                                        </Typography>
-                                                    </li>
-                                                    {/*
-                                                        <li key={index}> Sustituto: {ingrediente.Sustituto}</li>
-                                                        */}
-                                                </div>
-                                            )
-                                        })}
-                                    </ul>
-                                </div>
-                            )
-                        }
-                        )
-                    }
-                </>
-            )
-        }
-    }
-
-    function Elaboracion({ elaboracion }: { elaboracion: IElaboracion[] }) {
-        return (
-            <ul>
-                {elaboracion.map((paso, index) => {
-                    return (
-                        <div key={index}>
-                            <li key="1 +{index}">
-                                <Typography paragraph variant="body2">Paso: {paso.Paso}</Typography>
-                            </li>
-                            <li key="2 + {index}">
-                                <Typography paragraph variant="body2">{paso.Descripcion}</Typography>
-                            </li>
-                        </div>
-                    )
-                })}
-            </ul>
-        )
-    }
 
     return (
         <div >
@@ -190,17 +134,9 @@ export default function Receta(props: RecipeProps) {
                     </CardActions>
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <CardContent>
-                            <Typography key="-1" paragraph variant='subtitle1'>Ingredientes:</Typography>
-                            <Ingrediente grpIng={receta.IngredientesGrupo} ingredientes={receta.Ingredientes} />
-                            <Typography key="-2" paragraph variant='subtitle1'>Elaboración:</Typography>
+                            <Ingrediente grpIng={receta.IngredientesGrupo} />
                             <Elaboracion elaboracion={receta.Elaboracion} />
-                            <Typography key="-3" paragraph variant='subtitle1'>Notas:</Typography>
-                            {/*
-                            {receta.Notas.map((aaa, index) => {
-                                return (
-                                    <Typography key={index} paragraph variant="body2">{aaa}</Typography>)
-                            })}
-*/}
+                            <Nota nota={receta.Notas} />
                         </CardContent>
                     </Collapse>
                 </Card>

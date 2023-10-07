@@ -7,7 +7,7 @@ export interface IIngrediente {
 
 export interface IIngredienteGrupo {
     Grupo: string;
-    IngredientesRef: number[];
+    Ingredientes: IIngrediente[];
 }
 
 export interface IElaboracion {

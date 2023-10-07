@@ -2,6 +2,9 @@ import React from "react";
 import { IReceta, IIngrediente } from '../interfaces/Types';
 import { UseFormGetValues, useFieldArray } from "react-hook-form";
 import Ingredientes from "./recetaFormIngrediente"
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function RecetaFormGrupoIngr(props: { control: any; register: any; getValues: UseFormGetValues<IReceta>; setValue: any }) {
     const { control, register, getValues } = props;
@@ -28,11 +31,14 @@ export default function RecetaFormGrupoIngr(props: { control: any; register: any
                 );
             })}
 
-            <button type="button"
-                style={{ backgroundColor: "#555", borderRadius: "4px", padding: "0px 29px 0px", marginBottom: "10px" }}
-                onClick={() => append({ field1: "field1", field2: "field2" })}>
+            <Button
+                variant="outlined"
+                startIcon={<AddIcon />}
+                sx={{ marginBottom: "15px", marginTop: "15px" }}
+                onClick={() => { append({}) }}
+            >
                 Añadir Grupo
-            </button>
+            </Button>
 
             <hr />
         </div>

@@ -47,7 +47,6 @@ export default function Receta(props: RecipeProps) {
 
     // Recuperamos información del cocinero de la API.
     useEffect(() => {
-        console.log("Componente Receta: " + props.filename);
         fetch('recetas/' + props.filename
             , {
                 headers: {
@@ -60,19 +59,16 @@ export default function Receta(props: RecipeProps) {
                 return response.json();
             })
             .then(function (myJson) {
-                console.log(myJson);
                 setReceta(myJson);
             });
     }, [props.filename]);
 
     function handleEditMode() {
         setEditMode(!editMode);
-        console.log('EditMode: ' + editMode ? ' TRUE ' : ' FALSE ');
     }
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
-        receta.Notas.forEach((nota) => { console.log(nota) })
     };
 
     return (

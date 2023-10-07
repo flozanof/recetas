@@ -15,7 +15,6 @@ function getRecetas() {
     return (
         <div>
     {images.keys().filter(nombre => nombre.endsWith('.json')).map((receta, index  ) => {
-        console.log(receta);
         return (
         <Receta key={index} filename={receta} />
         );
@@ -29,7 +28,6 @@ export default function Home() {
 
     function handleEditMode() {
         setNewRecipe(!newRecipe);
-        console.log(newRecipe);
     }
 
     return (

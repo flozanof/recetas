@@ -18,6 +18,7 @@ import RecetaFormGrupoIngr from "./recetaFormGrupoIngr";
 import RecetaFormElaboracion from "./recetaFormElaboracion";
 import RecetaFormNotas from "./recetaFormNotas";
 import "../css/styleForm.css";
+import { data } from 'autoprefixer';
 
 interface IRecipeProps {
     handleEditMode: () => void;
@@ -40,16 +41,6 @@ function getFormJsonData(recipe: IReceta) {
     return JSON.stringify(recipe);
 }
 
-
-{/*
-const { downloadFile } = useDownloadFile({
-    fileName: "receta.json",
-    format: "applicationn/json",
-    data: '{"hola": "adios"}',
-});
-*/}
-{/*data: getFormJsonData(),*/ }
-
 export default function RecetaForm(props: IRecipeProps) {
     const [recipe, setRecipe] = React.useState<IReceta>(props.receta);
     const [open, setOpen] = React.useState(true);
@@ -70,21 +61,23 @@ export default function RecetaForm(props: IRecipeProps) {
             [props])
     });
 
+    const { downloadFile } = useDownloadFile({
+        fileName: "receta.json",
+        format: "applicationn/json",
+        data: getFormJsonData(recipe),
+    });
+
     const handleClose = () => {
         setOpen(false);
         props.handleEditMode();
     };
 
     const onSubmit: SubmitHandler<IReceta> = (data: IReceta) => {
-        console.log("Impresión método onSubmit: ");
-        data.Elaboracion.sort((a, b) => a.Paso-b.Paso);
-        console.log(data);
+        data.Elaboracion.sort((a, b) => a.Paso - b.Paso);
     };
 
     function saveFile() {
-        console.log("******* Entra en saveFile *******");
-        //        setNameFile("Prueba2.json");
-        //        downloadFile();
+        downloadFile();
     }
 
     if (recipe.Nombre) {
@@ -136,7 +129,7 @@ export default function RecetaForm(props: IRecipeProps) {
                                                 {...register("TecnicaElaboracion", { required: "Técnica elaboración obligatoria" })}
                                                 aria-invalid={errors.Nombre ? "true" : "false"} />
                                             {errors.TecnicaElaboracion && <p role="alert">Error: {errors.TecnicaElaboracion.message}</p>}
-                                            <input type="submit" value="DOWNLOAD JSON" />
+                                            {/*<input type="submit" value="DOWNLOAD JSON" />*/}
                                         </MyPaper>
                                     </Grid>
                                     <Grid item md={6} xl={5}>
@@ -159,8 +152,8 @@ export default function RecetaForm(props: IRecipeProps) {
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    {/*<Button onClick={saveFile}>Download File</Button>*/}
+                    <Button onClick={handleClose}>Exit</Button>
+                    <Button onClick={saveFile}>Download File</Button>
                     {/*<a {...linkProps}>Download SVG File</a>;*/}
                     {/*<Button onClick={() => download(fileUrl, filename)}>Download</Button>*/}
                 </DialogActions>

@@ -7,7 +7,7 @@ export interface IIngrediente {
 
 export interface IIngredienteGrupo {
     Grupo: string;
-    Ingredientes: IIngrediente[];
+    Ingredientes: IIngrediente[] | null;
 }
 
 export interface IElaboracion {
@@ -18,12 +18,12 @@ export interface IElaboracion {
 export interface IReceta {
     Nombre: string;
     Foto: string;
-    Comensales: number;
-    Dificultad: number;
-    TiempoCoccion: number;
-    TiempoElaboracion: number;
+    Comensales: number | null;
+    Dificultad: number | null;
+    TiempoCoccion: number | null;
+    TiempoElaboracion: number | null;
     TecnicaElaboracion: string;
-    IngredientesGrupo: IIngredienteGrupo[];
-    Elaboracion: IElaboracion[];
-    Notas: string[];
+    IngredientesGrupo: IIngredienteGrupo[] | null;
+    Elaboracion: IElaboracion[] | null;
+    Notas: string[] | null;
 }

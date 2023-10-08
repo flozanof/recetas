@@ -41,7 +41,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export default function Receta(props: RecipeProps) {
-    const [receta, setReceta] = useState<IReceta>({ Nombre: '', Foto: '', Comensales: 0, Dificultad: 0, TiempoCoccion: 0, TiempoElaboracion: 0, TecnicaElaboracion: '', IngredientesGrupo: [], Elaboracion: [], Notas: [], Ingredientes: [] });
+    const [receta, setReceta] = useState<IReceta>({ Nombre: '', Foto: '', Comensales: 0, Dificultad: 0, TiempoCoccion: 0, TiempoElaboracion: 0, TecnicaElaboracion: '', IngredientesGrupo: [], Elaboracion: [], Notas: [] });
     const [expanded, setExpanded] = useState(false);
     const [editMode, setEditMode] = useState(false);
 

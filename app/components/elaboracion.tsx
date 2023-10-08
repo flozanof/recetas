@@ -2,14 +2,14 @@
 import Typography from '@mui/material/Typography';
 import { IElaboracion } from '../interfaces/Types';
 
-export default function Ingrediente({ elaboracion }: { elaboracion: IElaboracion[] }) {
+export default function Ingrediente({ elaboracion }: { elaboracion: IElaboracion[] | null }) {
 
     return (
         <>
             <Typography key="-2" paragraph variant='h5' sx={{ marginBottom: '0px' }}>Elaboración</Typography>
             <hr style={{ marginBottom: '15px' }} />
             <ul>
-                {elaboracion.map((paso, index) => {
+                {elaboracion && elaboracion.map((paso, index) => {
                     return (
                         <div key={index}>
                             <li key="1 +{index}">

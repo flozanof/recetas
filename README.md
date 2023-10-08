@@ -40,3 +40,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
     - TailwWind CSS
     - Eslind
     - App Router
+
+
+## Leer ficheros recetas directorio
+Instalar paquete webpack como dependencia dev.
+- npm install --save @types/webpack-env

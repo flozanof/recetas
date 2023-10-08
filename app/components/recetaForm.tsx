@@ -73,7 +73,9 @@ export default function RecetaForm(props: IRecipeProps) {
     };
 
     const onSubmit: SubmitHandler<IReceta> = (data: IReceta) => {
-        data.Elaboracion.sort((a, b) => a.Paso - b.Paso);
+        if (data.Elaboracion != null) {
+            data.Elaboracion.sort((a, b) => a.Paso - b.Paso);
+        }
     };
 
     function saveFile() {

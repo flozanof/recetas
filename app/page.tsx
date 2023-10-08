@@ -8,11 +8,13 @@ import RecetaForm from './components/recetaForm';
 import nuevaReceta from '../public/recetas/prototipo/NuevaReceta.json'
 import Grid from '@mui/material/Grid';
 
-const images = require.context('../public/recetas', false);
+//const images = require('../public/recetas', false);
 //const imageList = images.keys().map(image => images(image));
 
 function getRecetas() {
-    return (
+const images = require.context('../public/recetas', false);
+
+return (
         <div>
     {images.keys().filter(nombre => nombre.endsWith('.json')).map((receta, index  ) => {
         return (

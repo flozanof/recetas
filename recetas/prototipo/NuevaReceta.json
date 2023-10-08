@@ -1,0 +1,24 @@
+{
+    "Nombre": "Nombre",
+    "Foto":"",
+    "Comensales:": "",
+    "Dificultad": null,
+    "Comensales": null,
+    "TiempoCoccion": null,
+    "TiempoElaboracion": null,
+    "TecnicaElaboracion": "",
+    "IngredientesGrupo": [
+        {
+            "Grupo": "Nombre",
+            "Ingredientes": null
+        }
+    ],
+    "Elaboracion": [
+        {
+            "Paso": 1,
+            "Descripcion": ""
+        }
+    ],
+    "Notas": [
+    ]
+}

@@ -98,7 +98,7 @@ export default function Receta(props: RecipeProps) {
                     <CardMedia
                         component="img"
                         height="194"
-                        image={"/"+receta.Foto}
+                        image={receta.Foto}
                         alt="Foto receta"
                     />
                     <CardContent>

@@ -18,7 +18,6 @@ import RecetaFormGrupoIngr from "./recetaFormGrupoIngr";
 import RecetaFormElaboracion from "./recetaFormElaboracion";
 import RecetaFormNotas from "./recetaFormNotas";
 import "../css/styleForm.css";
-import { data } from 'autoprefixer';
 
 interface IRecipeProps {
     handleEditMode: () => void;
@@ -76,6 +75,7 @@ export default function RecetaForm(props: IRecipeProps) {
         if (data.Elaboracion != null) {
             data.Elaboracion.sort((a, b) => a.Paso - b.Paso);
         }
+        setRecipe(data);
     };
 
     function saveFile() {
@@ -131,7 +131,7 @@ export default function RecetaForm(props: IRecipeProps) {
                                                 {...register("TecnicaElaboracion", { required: "Técnica elaboración obligatoria" })}
                                                 aria-invalid={errors.Nombre ? "true" : "false"} />
                                             {errors.TecnicaElaboracion && <p role="alert">Error: {errors.TecnicaElaboracion.message}</p>}
-                                            {/*<input type="submit" value="DOWNLOAD JSON" />*/}
+                                            <input type="submit" value="SAVE DATA" />
                                         </MyPaper>
                                     </Grid>
                                     <Grid item md={6} xl={5}>

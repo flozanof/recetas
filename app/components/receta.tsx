@@ -76,7 +76,8 @@ export default function Receta(props: RecipeProps) {
             {editMode
                 ? <RecetaForm mode="U" fileNameRecipe="ContramuslosPolloSoja.json" receta={receta} handleEditMode={() => handleEditMode()} />
                 :
-                <Card sx={{ maxWidth: 345 }}>
+//                <Card sx={{ maxWidth: 345 }}>
+                <Card >
                     {/* Esto iba dentro de CardHeader
                     avatar={
                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" !visible>
@@ -117,9 +118,6 @@ export default function Receta(props: RecipeProps) {
                         </ul>
                     </CardContent>
                     <CardActions disableSpacing>
-                        <IconButton aria-label="share" >
-                            <ShareIcon />
-                        </IconButton>
                         <ExpandMore
                             expand={expanded}
                             onClick={handleExpandClick}

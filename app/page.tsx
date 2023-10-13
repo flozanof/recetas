@@ -37,7 +37,7 @@ export default function Home() {
             {newRecipe
                 ? <RecetaForm mode="U" fileNameRecipe="Receta.json" receta={nuevaReceta} handleEditMode={() => handleEditMode()} />
                 :
-                <main className="flex flex-col justify-between p-24">
+                <main className="flex flex-col justify-between p-2">
                     <Button
                         variant="outlined"
                         startIcon={<AddIcon />}

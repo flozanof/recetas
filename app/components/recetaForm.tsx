@@ -137,13 +137,13 @@ export default function RecetaForm(props: IRecipeProps) {
                                         </MyPaper>
                                     </Grid>
                                     <Grid item md={6} xl={5}>
-                                        <MyPaper className='form' elevation={3} sx={{ boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff' }} >
+                                        <MyPaper className='form' elevation={3} sx={{ backgroundColor: '#0e101c', boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff' }} >
                                             <label>INGREDIENTES</label>
                                             <RecetaFormGrupoIngr {...{ control, register, getValues, setValue }} />
                                         </MyPaper>
                                     </Grid>
                                     <Grid item md={12} xl={4}>
-                                        <MyPaper className="form" elevation={3} sx={{ boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff' }} >
+                                        <MyPaper className="form" elevation={3} sx={{ backgroundColor: '#0e101c', boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff' }} >
                                             <label>ELABORACIÓN</label>
                                             <RecetaFormElaboracion {...{ control, register, getValues, setValue }} />
                                             <label>NOTAS</label>

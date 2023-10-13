@@ -99,7 +99,7 @@ export default function RecetaForm(props: IRecipeProps) {
                     <DialogContentText className='p' marginBottom={3}>
                     </DialogContentText>
                     <Box sx={{ width: '100%' }}>
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <form style={{ background: '#0e101c' }} onSubmit={handleSubmit(onSubmit)}>
                             <Box sx={{ flexGrow: 1, p: "5px 15px 15px 15px" }} >
                                 <Grid container spacing={2} >
                                     <Grid item md={6} xl={3}>

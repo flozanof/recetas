@@ -88,12 +88,14 @@ export default function RecetaForm(props: IRecipeProps) {
             <Dialog
                 fullWidth={true}
                 maxWidth={"xl"}
-                open={open}>
+                open={open}
+                PaperProps={{ sx: { boxShadow: '0px 3px 3px -2px #bdbdbd, 0px 3px 4px 0px #bdbdbd, 0px 1px 8px 0px #bdbdbd' } }}
+                >
                 <DialogTitle className='h1' sx={{backgroundColor: '#0e101c'}}>{(props.mode === "U") ? "Modificación Receta" : "Nueva Receta"}
                     <p style={{ fontSize: '14px', color: 'white'}}>Inserte los datos de la receta, guárdala y descárgala.
                         Posteriormente suba manualmente el fichero json al servidor junto con la imagen.</p>
                 </DialogTitle>
-                <DialogContent className='form'>
+                <DialogContent className='form' sx={{backgroundColor: '#0e101c', boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff'}} >
                     <DialogContentText className='p' marginBottom={3}>
                     </DialogContentText>
                     <Box sx={{ width: '100%' }}>
@@ -101,7 +103,7 @@ export default function RecetaForm(props: IRecipeProps) {
                             <Box sx={{ flexGrow: 1, p: "5px 15px 15px 15px" }} >
                                 <Grid container spacing={2} >
                                     <Grid item md={6} xl={3}>
-                                        <MyPaper className='form' elevation={3}>
+                                        <MyPaper className='form' elevation={3} sx={{ boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff' }} >
                                             <label>DATOS GENÉRICOS</label>
                                             <input type="text" placeholder="Nombre receta"
                                                 {...register("Nombre", { required: true, maxLength: 50 })}
@@ -135,13 +137,13 @@ export default function RecetaForm(props: IRecipeProps) {
                                         </MyPaper>
                                     </Grid>
                                     <Grid item md={6} xl={5}>
-                                        <MyPaper className='form' elevation={3}>
+                                        <MyPaper className='form' elevation={3} sx={{ boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff' }} >
                                             <label>INGREDIENTES</label>
                                             <RecetaFormGrupoIngr {...{ control, register, getValues, setValue }} />
                                         </MyPaper>
                                     </Grid>
                                     <Grid item md={12} xl={4}>
-                                        <MyPaper className="form" elevation={3}>
+                                        <MyPaper className="form" elevation={3} sx={{ boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff' }} >
                                             <label>ELABORACIÓN</label>
                                             <RecetaFormElaboracion {...{ control, register, getValues, setValue }} />
                                             <label>NOTAS</label>

@@ -89,8 +89,8 @@ export default function RecetaForm(props: IRecipeProps) {
                 fullWidth={true}
                 maxWidth={"xl"}
                 open={open}>
-                <DialogTitle className='h1'>{(props.mode === "U") ? "Modificación Receta" : "Nueva Receta"}
-                    <p style={{ fontSize: '14px', color: 'white' }}>Inserte los datos de la receta, guárdala y descárgala.
+                <DialogTitle className='h1' sx={{backgroundColor: '#0e101c'}}>{(props.mode === "U") ? "Modificación Receta" : "Nueva Receta"}
+                    <p style={{ fontSize: '14px', color: 'white'}}>Inserte los datos de la receta, guárdala y descárgala.
                         Posteriormente suba manualmente el fichero json al servidor junto con la imagen.</p>
                 </DialogTitle>
                 <DialogContent className='form'>

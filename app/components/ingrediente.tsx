@@ -19,7 +19,7 @@ export default function Ingrediente(props: {
                                     <Typography paragraph variant="h6">{grp.Grupo}</Typography>
                                 }
                                 <ul>
-                                    {grp.Ingredientes?.filter(x => { x != null }).map((ingrediente, index) => {
+                                    {grp.Ingredientes?.filter( x => (x !== null)  ).map((ingrediente, index) => {
                                         return (
                                             <div key={index}>
                                                 <li key={index}>

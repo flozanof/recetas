@@ -89,7 +89,7 @@ export default function RecetaForm(props: IRecipeProps) {
                 fullWidth={true}
                 maxWidth={"xl"}
                 open={open}
-                PaperProps={{ sx: { boxShadow: '0px 3px 3px -2px #bdbdbd, 0px 3px 4px 0px #bdbdbd, 0px 1px 8px 0px #bdbdbd' } }}
+                PaperProps={{ sx: { backgroundColor: '#0e101c', boxShadow: '0px 3px 3px -2px #bdbdbd, 0px 3px 4px 0px #bdbdbd, 0px 1px 8px 0px #bdbdbd' } }}
                 >
                 <DialogTitle className='h1' sx={{backgroundColor: '#0e101c'}}>{(props.mode === "U") ? "Modificación Receta" : "Nueva Receta"}
                     <p style={{ fontSize: '14px', color: 'white'}}>Inserte los datos de la receta, guárdala y descárgala.
@@ -99,7 +99,7 @@ export default function RecetaForm(props: IRecipeProps) {
                     <DialogContentText className='p' marginBottom={3}>
                     </DialogContentText>
                     <Box sx={{ width: '100%' }}>
-                        <form style={{ background: '#0e101c' }} onSubmit={handleSubmit(onSubmit)}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <Box sx={{ flexGrow: 1, p: "5px 15px 15px 15px" }} >
                                 <Grid container spacing={2} >
                                     <Grid item md={6} xl={3}>

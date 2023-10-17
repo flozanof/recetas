@@ -20,7 +20,6 @@ export default function RecetaFormIngredientes(props: { indexGrp: number; contro
                     </div>
                 );
             })}
-            <hr />
         </div>
     );
 }

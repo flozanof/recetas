@@ -27,6 +27,15 @@ export default function RecetaFormGrupoIngr(props: { control: any; register: any
                         />
 
                         <Ingredientes  {...{ indexGrp, control, register, getValues }} />
+                        <Button
+                                        variant="outlined"
+                                        startIcon={<DeleteIcon />}
+                                        sx={{ marginBottom: "25px" }}
+                                        onClick={() => { remove(indexGrp) }}
+                                    >
+                                        Delete Group
+                                    </Button>
+                                    <hr />
                     </div>
                 );
             })}

@@ -1,0 +1,106 @@
+{
+    "Nombre": "Rabo de toro",
+    "Foto": "RaboToro.jpg",
+    "Comensales": 6,
+    "Dificultad": 1,
+    "TiempoCoccion": 90,
+    "TiempoElaboracion": 100,
+    "TecnicaElaboracion": "Olla",
+    "IngredientesGrupo": [{
+        "Grupo": "Principal",
+        "Ingredientes": [
+            {
+                "Nombre": "Rabo de toro",
+                "Cantidad": 2.5,
+                "Unidad": "Kilogramos"
+            },
+            {
+                "Nombre": "Zanahorias",
+                "Cantidad": 3,
+                "Unidad": "Unidad"
+            },
+            {
+                "Nombre": "Cebollas grandes",
+                "Cantidad": 2,
+                "Unidad": "Unidad"
+            },
+            {
+                "Nombre": "Tomates grandes maduros",
+                "Cantidad": 2,
+                "Unidad": "Unidad"
+            },
+            {
+                "Nombre": "Pimiento rojo grande",
+                "Cantidad": 1,
+                "Unidad": "Unidad"
+            },
+            {
+                "Nombre": "Ajo",
+                "Cantidad": 3,
+                "Unidad": "Diente"
+            },
+            {
+                "Nombre": "Laurel",
+                "Cantidad": 3,
+                "Unidad": "Hoja"
+            },
+            {
+                "Nombre": "Comino",
+                "Cantidad": 2,
+                "Unidad": "Cucharadita"
+            },
+            {
+                "Nombre": "Pimienta en grano",
+                "Cantidad": 8,
+                "Unidad": "Unidad"
+            },
+            {
+                "Nombre": "Aceite",
+                "Cantidad": 3,
+                "Unidad": "Cucharada"
+            },
+            {
+                "Nombre": "Vino",
+                "Cantidad": 1,
+                "Unidad": "Vaso"
+            },
+            {
+                "Nombre": "Sal",
+                "Cantidad": 4,
+                "Unidad": "Cucharadita"
+            },
+            {
+                "Nombre": "Arroz",
+                "Cantidad": 1,
+                "Unidad": "Vaso"
+            }
+        ]
+    }],
+    "Elaboracion": [
+        {
+            "Paso": 1,
+            "Descripcion": "Cortar verduras en trozos pequeños. Echar en olla con aceite."
+        },
+        {
+            "Paso": 2,
+            "Descripcion": "Remover 2 o 3 minutos y echar rabo de toro, laurel, comino, pimienta y sal."
+        },
+        {
+            "Paso": 3,
+            "Descripcion": "Transcurrida media hora agregar vino tinto. Todo el proceso con la olla tapada."
+        },
+        {
+            "Paso": 4,
+            "Descripcion": "Tiempo total cocción es de 1 hora y media removiendo cada 15 minutos."
+        },
+        {
+            "Paso": 5,
+            "Descripcion": "20 minutos antes de terminar añadir medio vaso de agua."
+        },
+        {
+            "Paso": 6,
+            "Descripcion": "Acompañar con arroz blanco."
+        }
+    ],
+    "Notas": []
+}

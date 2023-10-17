@@ -11,9 +11,10 @@ import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditIcon from '@mui/icons-material/Edit';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { IReceta } from '../interfaces/Types';
 import RecetaForm from './recetaForm';
 import Ingrediente from './ingrediente';
@@ -26,9 +27,32 @@ interface ExpandMoreProps extends IconButtonProps {
 
 interface RecipeProps {
     filename: string;
+    receta: IReceta | null;
+    expanded: boolean;
+    handleMaximizedMode: (x: IReceta) => void;
 }
 
+const styles = {
 
+    smallIcon: {
+        width: 20,
+        height: 20,
+    },
+
+    styleImage: {
+        height: 170,
+    },
+
+    cardContent: {
+        height: 0,
+        padding: 0,
+    },
+
+    cardAction: {
+        padding: 1,
+    }
+
+};
 const ExpandMore = styled((props: ExpandMoreProps) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -42,26 +66,30 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default function Receta(props: RecipeProps) {
     const [receta, setReceta] = useState<IReceta>({ Nombre: '', Foto: '', Comensales: 0, Dificultad: 0, TiempoCoccion: 0, TiempoElaboracion: 0, TecnicaElaboracion: '', IngredientesGrupo: [], Elaboracion: [], Notas: [] });
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(props.expanded);
     const [editMode, setEditMode] = useState(false);
 
-    // Recuperamos información del cocinero de la API.
+    // Recuperamos información del cocinero de la API si no viene en las propiedades.
     useEffect(() => {
-        fetch('recetas/' + props.filename
-            , {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+        if (props.receta === null) {
+            fetch('recetas/' + props.filename
+                , {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
                 }
-            }
-        )
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (myJson) {
-                setReceta(myJson);
-            });
-    }, [props.filename]);
+            )
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (myJson) {
+                    setReceta(myJson);
+                });
+        } else {
+            setReceta(props.receta);
+        }
+    }, [props.filename, props.receta]);
 
     function handleEditMode() {
         setEditMode(!editMode);
@@ -76,21 +104,15 @@ export default function Receta(props: RecipeProps) {
             {editMode
                 ? <RecetaForm mode="U" fileNameRecipe="ContramuslosPolloSoja.json" receta={receta} handleEditMode={() => handleEditMode()} />
                 :
-//                <Card sx={{ maxWidth: 345 }}>
+                //                <Card sx={{ maxWidth: 345 }}>
                 <Card >
-                    {/* Esto iba dentro de CardHeader
-                    avatar={
-                        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" !visible>
-                            R
-                        </Avatar>
-                    }*/}
                     <CardHeader
                         avatar={
-                            <Avatar sx={{ width: 0, bgcolor: red[500], visibility: 'hidden' }} />
+                            <Avatar sx={{ width: 0, height: 15, bgcolor: red[500], visibility: 'hidden' }} />
                         }
                         action={
-                            <IconButton aria-label="settings" onClick={handleEditMode}>
-                                <EditIcon />
+                            <IconButton style={styles.smallIcon} aria-label="settings" onClick={handleEditMode} hidden={props.receta != null}>
+                                <EditIcon style={styles.smallIcon} />
                             </IconButton>
                         }
                         title={receta.Nombre}
@@ -98,26 +120,20 @@ export default function Receta(props: RecipeProps) {
                     />
                     <CardMedia
                         component="img"
-                        height="194"
+                        style={styles.styleImage}
                         image={receta.Foto}
                         alt="Foto receta"
                     />
-                    <CardContent>
-                        <ul>
-                            <li className="flex flex-row items-center justify-between" >
-                                <div>
-                                    <Typography variant="body2" color="text.secondary">Comensales: {receta.Comensales}</Typography>
-                                </div>
-                                <div>
-                                    <Typography variant="body2" color="text.secondary">Dificultad: {receta.Dificultad}</Typography>
-                                </div>
-                            </li>
-                            <li><Typography variant="body2" color="text.secondary">Tiempo elaboración: {receta.TiempoElaboracion} minutos</Typography></li>
-                            <li><Typography variant="body2" color="text.secondary">Tiempo cocción: {receta.TiempoCoccion} minutos</Typography></li>
-                            <li><Typography variant="body2" color="text.secondary">Técnica elaboración: {receta.TecnicaElaboracion}</Typography></li>
-                        </ul>
+                    <CardContent style={styles.cardContent}>
                     </CardContent>
-                    <CardActions disableSpacing>
+                    <CardActions disableSpacing style={styles.cardAction}>
+                        <IconButton aria-label="expand contents" onClick={() => props.handleMaximizedMode(receta)} >
+                            {
+                                (props.receta === null)
+                                    ? <FullscreenIcon />
+                                    : <FullscreenExitIcon />
+                            }
+                        </IconButton>
                         <ExpandMore
                             expand={expanded}
                             onClick={handleExpandClick}
@@ -129,6 +145,19 @@ export default function Receta(props: RecipeProps) {
                     </CardActions>
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <CardContent>
+                            <ul>
+                                <li className="flex flex-row items-center justify-between" >
+                                    <div>
+                                        <Typography variant="body2" color="text.secondary">Comensales: {receta.Comensales}</Typography>
+                                    </div>
+                                    <div>
+                                        <Typography variant="body2" color="text.secondary">Dificultad: {receta.Dificultad}</Typography>
+                                    </div>
+                                </li>
+                                <li><Typography variant="body2" color="text.secondary">Tiempo elaboración: {receta.TiempoElaboracion} minutos</Typography></li>
+                                <li><Typography variant="body2" color="text.secondary">Tiempo cocción: {receta.TiempoCoccion} minutos</Typography></li>
+                                <li><Typography variant="body2" color="text.secondary">Técnica elaboración: {receta.TecnicaElaboracion}</Typography></li>
+                            </ul>
                             <Ingrediente grpIng={receta.IngredientesGrupo} />
                             <Elaboracion elaboracion={receta.Elaboracion} />
                             <Nota nota={receta.Notas} />

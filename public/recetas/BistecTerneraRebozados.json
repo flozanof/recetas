@@ -1,0 +1,67 @@
+{
+    "Nombre": "Bistec ternera rebozado",
+    "Foto": "BistecTerneraRebozado.jpg",
+    "Dificultad": 1,
+    "Comensales": 4,
+    "TiempoCoccion": 15,
+    "TiempoElaboracion": 60,
+    "TecnicaElaboracion": "Frito",
+    "IngredientesGrupo": [{
+        "Grupo": "Principal",
+        "Ingredientes": [
+            {
+                "Nombre": "Bistec ternera",
+                "Cantidad": 4,
+                "Unidad": "Unidad"
+            },
+            {
+                "Nombre": "Perejil",
+                "Cantidad": 1,
+                "Unidad": "Unidad"
+            },
+            {
+                "Nombre": "Sal",
+                "Cantidad": 1,
+                "Unidad": "Cucharadita"
+            },
+            {
+                "Nombre": "Ajo",
+                "Cantidad": 3,
+                "Unidad": "Diente"
+            },
+            {
+                "Nombre": "Harina",
+                "Cantidad": 100,
+                "Unidad": "Gramos"
+            },
+            {
+                "Nombre": "Huevo",
+                "Cantidad": 1,
+                "Unidad": "Unidad"
+            }
+        ]
+    }],
+    "Elaboracion": [
+        {
+            "Paso": 1,
+            "Descripcion": "Aplastar los bistec de ternera."
+        },
+        {
+            "Paso": 2,
+            "Descripcion": "Machacar perejil, ajo y sal en un mortero."
+        },
+        {
+            "Paso": 3,
+            "Descripcion": "Untar los bistecs con el perejil y dejar reposar media hora como mínimo."
+        },
+        {
+            "Paso": 4,
+            "Descripcion": "Pasar por harina y luego huevo."
+        },
+        {
+            "Paso": 5,
+            "Descripcion": "Freírlos."
+        }
+    ],
+    "Notas": []
+}

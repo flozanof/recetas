@@ -1,9 +1,8 @@
 {
     "Nombre": "Nombre",
     "Foto":"",
-    "Comensales:": "",
-    "Dificultad": null,
     "Comensales": null,
+    "Dificultad": null,
     "TiempoCoccion": null,
     "TiempoElaboracion": null,
     "TecnicaElaboracion": "",
@@ -19,6 +18,5 @@
             "Descripcion": ""
         }
     ],
-    "Notas": [
-    ]
+    "Notas": []
 }

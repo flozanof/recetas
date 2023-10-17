@@ -36,7 +36,6 @@ const MyPaper = styled(Paper)(({ theme }) => ({
 
 
 function getFormJsonData(recipe: IReceta) {
-    console.log("*************** GET FORM JSON DATA ************");
     return JSON.stringify(recipe);
 }
 
@@ -84,7 +83,6 @@ export default function RecetaForm(props: IRecipeProps) {
 
     if (recipe.Nombre) {
         return (
-            console.log("------------------  PINTANDO ------------------------------------------"),
             <Dialog
                 fullWidth={true}
                 maxWidth={"xl"}

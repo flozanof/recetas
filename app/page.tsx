@@ -9,38 +9,56 @@ import nuevaReceta from '../public/recetas/prototipo/NuevaReceta.json'
 import Grid from '@mui/material/Grid';
 import { IReceta } from './interfaces/Types';
 import RecetaMaximized from './components/recetaMaximized';
+import TipoComida from './components/seleccionTipoComida'
 
-//const images = require('../public/recetas', false);
-//const imageList = images.keys().map(image => images(image));
-
-function getRecetas(handleMaximizedMode: (x: IReceta) => void) {
-    const images = require.context('../public/recetas', false);
+function getRecetas(tipoReceta: string, handleMaximizedMode: (x: IReceta) => void) {
+    let recipes;
+    switch (tipoReceta) {
+        case "cafes": {
+            recipes = require.context('../public/recetas/cafes', false);
+            break;
+        }
+        case "postres": {
+            recipes = require.context('../public/recetas/postres', false);
+            break;
+        }
+        default: {
+            recipes = require.context('../public/recetas/comidas', false);
+            break;
+        }
+    }
 
     return (
         <div>
             <Grid container spacing={2} >
-                {images.keys().filter(nombre => nombre.endsWith('.json')).map((receta, index) => {
-                    return (
-                        <Grid key={index} item md={4} lg={3} xl={2}>
-                            <Receta expanded={false} filename={receta} receta={null} handleMaximizedMode={handleMaximizedMode} />
-                        </Grid>
-                    );
-                })}
+                {
+                    recipes.keys().filter(nombre => nombre.endsWith('.json')).map((recipe, index) => {
+                        return (
+                            <Grid key={index} item md={4} lg={3} xl={2}>
+                                <Receta expanded={false} filename={recipe} recipe={null} tipoReceta={tipoReceta} handleMaximizedMode={handleMaximizedMode} />
+                            </Grid>
+                        );
+                    })}
             </Grid>
         </div>
     );
 }
 
 export default function Home() {
+    const [recipeType, setRecipeType] = useState("comidas");
     const [newRecipe, setNewRecipe] = useState(false);
-    const [maximizedRecipe, setMaximizedRecipe] = useState<IReceta|null>(null);
+    const [maximizedRecipe, setMaximizedRecipe] = useState<IReceta | null>(null);
 
     function handleEditMode() {
         setNewRecipe(!newRecipe);
     }
 
-    function handleMaximizedMode(receta : IReceta | null) {
+    function handleMaximizedMode(receta: IReceta | null) {
         setMaximizedRecipe(receta);
+    }
+
+    function handleRecipeType(tipoReceta: string) {
+        setRecipeType(tipoReceta);
     }
 
     return (
@@ -49,18 +67,21 @@ export default function Home() {
                 ? <RecetaForm mode="U" fileNameRecipe="Receta.json" receta={nuevaReceta} handleEditMode={() => handleEditMode()} />
                 :
                 <main className="flex flex-col justify-between p-2">
-                    <Button
-                        variant="outlined"
-                        startIcon={<AddIcon />}
-                        sx={{ marginBottom: '10px', maxWidth: '180px' }}
-                        onClick={() => { handleEditMode() }}
-                    >
-                        Añadir Receta
-                    </Button>
+                    <div>
+                        <Button
+                            variant="outlined"
+                            startIcon={<AddIcon />}
+                            sx={{ marginBottom: '10px', maxWidth: '180px' }}
+                            onClick={() => { handleEditMode() }}
+                        >
+                            Añadir Receta
+                        </Button>
+                        <TipoComida handleRecipeType={handleRecipeType} />
+                    </div>
                     <div  >
                         {(maximizedRecipe === null)
-                            ? getRecetas(handleMaximizedMode)
-                            : <RecetaMaximized receta={maximizedRecipe} handleMaximizedMode={() => handleMaximizedMode(null)} />
+                            ? getRecetas(recipeType, handleMaximizedMode)
+                            : <RecetaMaximized tipoReceta={recipeType} receta={maximizedRecipe} handleMaximizedMode={() => handleMaximizedMode(null)} />
                         }
                     </div>
                 </main>

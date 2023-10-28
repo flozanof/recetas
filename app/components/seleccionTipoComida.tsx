@@ -1,15 +1,27 @@
 import * as React from 'react';
-import ToggleButton from '@mui/material/ToggleButton';
+import MuiToggleButton from "@mui/material/ToggleButton";
+//import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { styled } from "@mui/material/styles";
 
 interface ITipoComidaProps {
   handleRecipeType: (x: string) => void;
 }
 
-
+const ToggleButton = styled(MuiToggleButton)({
+  backgroundColor: '#000000',
+  borderColor: '#1976d2',
+  color: '#888888',
+  marginLeft: '30px',
+  marginBottom: '10px',
+  "&.Mui-selected, &.Mui-selected:hover": {
+    backgroundColor: '#123157',
+    borderColor: '#1976d2'
+  }
+});
 
 export default function TipoComida(props: ITipoComidaProps) {
-  const [tipoComida, setTipoComida] = React.useState('recetas');
+  const [tipoComida, setTipoComida] = React.useState('comidas');
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,

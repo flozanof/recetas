@@ -67,16 +67,16 @@ export default function Home() {
                 ? <RecetaForm mode="U" fileNameRecipe="Receta.json" receta={nuevaReceta} handleEditMode={() => handleEditMode()} />
                 :
                 <main className="flex flex-col justify-between p-2">
-                    <div>
+                    <div className='flex justify-between'>
+                        <TipoComida handleRecipeType={handleRecipeType} />
                         <Button
                             variant="outlined"
                             startIcon={<AddIcon />}
-                            sx={{ marginBottom: '10px', maxWidth: '180px' }}
+                            sx={{ marginTop: '5px', marginBottom: '25px', maxWidth: '180px' }}
                             onClick={() => { handleEditMode() }}
                         >
                             Añadir Receta
                         </Button>
-                        <TipoComida handleRecipeType={handleRecipeType} />
                     </div>
                     <div  >
                         {(maximizedRecipe === null)

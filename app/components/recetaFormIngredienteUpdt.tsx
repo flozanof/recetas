@@ -36,7 +36,7 @@ export default function RecetaFormIngredientesUpdt(props: { indexGrp: number, co
                                     <input
                                         placeholder="Cantidad"
                                         {...register(`IngredientesGrupo.${indexGrp}.Ingredientes.${index}.Cantidad`, {
-                                            required: true
+                                            required: false
                                         })}
                                         style={{ marginRight: "25px", marginTop: "0px", marginBottom: "0px" }}
                                     />
@@ -45,7 +45,7 @@ export default function RecetaFormIngredientesUpdt(props: { indexGrp: number, co
                                     <input
                                         placeholder="Unidad"
                                         {...register(`IngredientesGrupo.${indexGrp}.Ingredientes.${index}.Unidad`, {
-                                            required: true
+                                            required: false
                                         })}
                                         style={{ marginRight: "25px", marginTop: "0px", marginBottom: "0px" }}
                                     />

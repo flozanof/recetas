@@ -106,31 +106,31 @@ export default function RecetaForm(props: IRecipeProps) {
                                             <input type="text" placeholder="Nombre receta"
                                                 {...register("Nombre", { required: true, maxLength: 50 })}
                                                 aria-invalid={errors.Nombre ? "true" : "false"} />
-                                            {errors.Nombre && <p role="alert">Nombre obligatorio. Máx 50 caracteres</p>}
+                                            {errors.Nombre && <p style={{ color: 'red'}} role="alert">Nombre obligatorio. Máx 50 caracteres</p>}
                                             <input type="text" placeholder="Foto"
                                                 {...register("Foto", { required: "Foto obligatoria", maxLength: 100 })}
                                                 aria-invalid={errors.Nombre ? "true" : "false"} />
-                                            {errors.Foto && <p role="alert">Error: {errors.Foto.message}</p>}
+                                            {errors.Foto && <p style={{ color: 'red'}} role="alert">Error: {errors.Foto.message}</p>}
                                             <input type="number" placeholder="Comensales"
                                                 {...register("Comensales", { required: "Comensales obligatorios", maxLength: 2 })}
                                                 aria-invalid={errors.Comensales ? "true" : "false"} />
-                                            {errors.Comensales && <p role="alert">Error: {errors.Comensales.message}</p>}
+                                            {errors.Comensales && <p style={{ color: 'red'}} role="alert">Error: {errors.Comensales.message}</p>}
                                             <input type="number" placeholder="Dificultad (Máx: 5)"
                                                 {...register("Dificultad", { required: "Dificultad  obligatoria", maxLength: 1, max: 5 })}
                                                 aria-invalid={errors.Nombre ? "true" : "false"} />
-                                            {errors.Dificultad && <p role="alert">Error: {errors.Dificultad.message}</p>}
+                                            {errors.Dificultad && <p style={{ color: 'red'}} role="alert">Error: {errors.Dificultad.message}</p>}
                                             <input type="number" placeholder="Tiempo Cocción (minutos)"
                                                 {...register("TiempoCoccion", { required: "Tiempo Cocción obligatorio", maxLength: 4 })}
                                                 aria-invalid={errors.Nombre ? "true" : "false"} />
-                                            {errors.TiempoCoccion && <p role="alert">Error: {errors.TiempoCoccion.message}</p>}
+                                            {errors.TiempoCoccion && <p style={{ color: 'red'}} role="alert">Error: {errors.TiempoCoccion.message}</p>}
                                             <input type="number" placeholder="Tiempo Elaboración (minutos)"
                                                 {...register("TiempoElaboracion", { required: "Tiempo elaboración obligatorio", maxLength: 4 })}
                                                 aria-invalid={errors.Nombre ? "true" : "false"} />
-                                            {errors.TiempoElaboracion && <p role="alert">Error: {errors.TiempoElaboracion.message}</p>}
+                                            {errors.TiempoElaboracion && <p style={{ color: 'red'}} role="alert">Error: {errors.TiempoElaboracion.message}</p>}
                                             <input type="text" placeholder="Técnica Elaboración"
                                                 {...register("TecnicaElaboracion", { required: "Técnica elaboración obligatoria" })}
                                                 aria-invalid={errors.Nombre ? "true" : "false"} />
-                                            {errors.TecnicaElaboracion && <p role="alert">Error: {errors.TecnicaElaboracion.message}</p>}
+                                            {errors.TecnicaElaboracion && <p style={{ color: 'red'}} role="alert">Error: {errors.TecnicaElaboracion.message}</p>}
                                             <input type="submit" value="SAVE DATA" />
                                         </MyPaper>
                                     </Grid>

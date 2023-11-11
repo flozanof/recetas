@@ -5,6 +5,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { styled } from "@mui/material/styles";
 
 interface ITipoComidaProps {
+  recipeType: string;
   handleRecipeType: (x: string) => void;
 }
 
@@ -21,7 +22,7 @@ const ToggleButton = styled(MuiToggleButton)({
 });
 
 export default function TipoComida(props: ITipoComidaProps) {
-  const [tipoComida, setTipoComida] = React.useState('comidas');
+  const [tipoComida, setTipoComida] = React.useState(props.recipeType);
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,

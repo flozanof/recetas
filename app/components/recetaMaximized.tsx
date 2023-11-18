@@ -24,7 +24,7 @@ const MyPaper = styled(Paper)(({ theme }) => ({
 export default function RecetaMaximized(props: IRecipeProps) {
     const [open, setOpen] = React.useState(true);
 
-    if ( (props.receta != null) && (props.receta.Nombre) ) {
+    if ((props.receta != null) && (props.receta.Nombre)) {
         return (
             <Dialog
                 fullWidth={true}
@@ -33,7 +33,11 @@ export default function RecetaMaximized(props: IRecipeProps) {
                 PaperProps={{ sx: { boxShadow: '0px 3px 3px -2px #bdbdbd, 0px 3px 4px 0px #bdbdbd, 0px 1px 8px 0px #bdbdbd' } }}
             >
                 <DialogContent className='form' sx={{ backgroundColor: '#0e101c', boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff' }} >
-                <Receta tipoReceta={props.tipoReceta} expanded={true} filename='' recipe={props.receta} handleMaximizedMode={props.handleMaximizedMode} viewOnly={false} />
+                    <Receta tipoReceta={props.tipoReceta} expanded={true} filename='' recipe={props.receta} handleMaximizedMode={props.handleMaximizedMode}
+                        viewOnly={false}
+                        ingredientFilter=""
+                        timeFilter={0}
+                    />
                 </DialogContent>
             </Dialog>
         );

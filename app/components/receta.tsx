@@ -29,6 +29,9 @@ interface RecipeProps {
     recipe: IReceta | null;
     expanded: boolean;
     tipoReceta: string;
+    viewOnly: boolean;
+    ingredientFilter: string;
+    timeFilter: number;
     handleMaximizedMode: (x: IReceta) => void;
 }
 
@@ -41,6 +44,10 @@ const styles = {
 
     styleImage: {
         height: 170,
+    },
+
+    styleImageMaximized: {
+        height: 300,
     },
 
     cardContent: {
@@ -65,13 +72,14 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export default function Receta(props: RecipeProps) {
-    const [receta, setReceta] = useState<IReceta>({ Nombre: '', Foto: '', Comensales: 0, Dificultad: 0, TiempoCoccion: 0, TiempoElaboracion: 0, TecnicaElaboracion: '', IngredientesGrupo: [], Elaboracion: [], Notas: [] });
+    const [receta, setReceta] = useState<IReceta | null>({ Nombre: '', Foto: '', Comensales: 0, Dificultad: 0, TiempoCoccion: 0, TiempoElaboracion: 0, TecnicaElaboracion: '', IngredientesGrupo: [], Elaboracion: [], Notas: [] });
     const [expanded, setExpanded] = useState(props.expanded);
     const [editMode, setEditMode] = useState(false);
     const [recipeLoaded, setRecipeLoaded] = useState(false);
 
     // Recuperamos información del cocinero de la API si no viene en las propiedades.
     useEffect(() => {
+        console.log('recetas/' + props.tipoReceta + '/' + props.filename);
         if (props.recipe === null) {
             fetch('recetas/' + props.tipoReceta + '/' + props.filename
                 , {
@@ -84,15 +92,22 @@ export default function Receta(props: RecipeProps) {
                 .then(function (response) {
                     return response.json();
                 })
-                .then(function (myJson) {
-                    setReceta(myJson);
+                .then(function (myJson: IReceta) {
+                    if ((props.ingredientFilter == "") ||
+                        (myJson.IngredientesGrupo?.flatMap(g => g.Ingredientes).map(e => e?.Nombre).some(i => i?.toUpperCase().includes(props.ingredientFilter)))) {
+                        console.log("*********** CARGA RECETA EN ESTADO: " + myJson.Nombre);
+                        setReceta(myJson);
+                    } else {
+                        console.log("*********** INGREDIENTE: " + props.ingredientFilter);
+                        setReceta(null);
+                    }
                     setRecipeLoaded(true);
-                });
+                })
         } else {
             setReceta(props.recipe);
             setRecipeLoaded(true);
         }
-    }, [props.filename, props.recipe, props.tipoReceta]);
+    }, [props.filename, props.recipe, props.tipoReceta, props.ingredientFilter]);
 
     function handleEditMode() {
         setEditMode(!editMode);
@@ -104,6 +119,7 @@ export default function Receta(props: RecipeProps) {
 
     if (recipeLoaded) {
         return (
+            receta != null &&
             <div >
                 {editMode
                     ? <RecetaForm mode="U" fileNameRecipe="ContramuslosPolloSoja.json" receta={receta} handleEditMode={() => handleEditMode()} />
@@ -115,7 +131,8 @@ export default function Receta(props: RecipeProps) {
                             //                            <Avatar sx={{ width: 0, height: 15, bgcolor: red[500], visibility: 'hidden' }} />
                             //                        }
                             action={
-                                <IconButton style={styles.smallIcon} aria-label="settings" onClick={handleEditMode} hidden={props.recipe != null}>
+                                !props.viewOnly
+                                && <IconButton style={styles.smallIcon} aria-label="settings" onClick={handleEditMode} >
                                     <EditIcon style={styles.smallIcon} />
                                 </IconButton>
                             }
@@ -128,20 +145,22 @@ export default function Receta(props: RecipeProps) {
                         />
                         <CardMedia
                             component="img"
-                            style={styles.styleImage}
+                            style={props.expanded ? styles.styleImageMaximized : styles.styleImage}
                             image={"imagenes/" + props.tipoReceta + "/" + receta.Foto}
                             alt="Foto receta"
                         />
                         <CardContent style={styles.cardContent}>
                         </CardContent>
                         <CardActions disableSpacing style={styles.cardAction}>
-                            <IconButton aria-label="expand contents" onClick={() => props.handleMaximizedMode(receta)} >
-                                {
-                                    (props.recipe === null)
-                                        ? <FullscreenIcon />
-                                        : <FullscreenExitIcon />
-                                }
-                            </IconButton>
+                            {!props.viewOnly
+                                && <IconButton aria-label="expand contents" onClick={() => props.handleMaximizedMode(receta)} hidden={props.viewOnly} >
+                                    {
+                                        (props.recipe === null)
+                                            ? <FullscreenIcon />
+                                            : <FullscreenExitIcon />
+                                    }
+                                </IconButton>
+                            }
                             <ExpandMore
                                 expand={expanded}
                                 onClick={handleExpandClick}

@@ -1,6 +1,8 @@
 'use client';
 import React from 'react';
 import { useState } from 'react';
+import { Route, Router, Routes, BrowserRouter } from 'react-router-dom';
+import { useParams, useSearchParams } from 'next/navigation';
 import Receta from "./components/receta";
 import AddIcon from '@mui/icons-material/Add';
 import TuneIcon from '@mui/icons-material/Tune';
@@ -13,7 +15,45 @@ import RecetaMaximized from './components/recetaMaximized';
 import TipoComida from './components/seleccionTipoComida'
 import Filtro from './components/filtro'
 
-function getRecetas(tipoReceta: string, handleMaximizedMode: (x: IReceta) => void) {
+
+function UnaReceta() {
+    const searchParams = useSearchParams()
+    const search = searchParams.get('search')
+    const tipoReceta = searchParams.get('tipoReceta');
+    const receta = searchParams.get('receta');
+    return (
+        <Receta expanded={true} filename={receta + '.json'} recipe={null} tipoReceta={(tipoReceta != null) ? tipoReceta : "comidas"}
+            handleMaximizedMode={() => { }}
+            viewOnly={false}
+            ingredientFilter=""
+            timeFilter=""
+        />
+    )
+}
+
+
+export default function Main() {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/receta" element={<UnaReceta />} />
+                <Route
+                    path="*"
+                    element={
+                        <main style={{ padding: "1rem" }}>
+                            <p>Bad URL</p>
+                            <p>http://host:port/:enterpriseCode</p>
+                            <p>Example: localhost:3000/MPT</p>
+                        </main>
+                    }
+                />
+            </Routes>
+        </BrowserRouter>
+    );
+}
+
+function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: string, timeFilter: string, handleMaximizedMode: (x: IReceta) => void) {
     let recipes;
     switch (tipoReceta) {
         case "cafes": {
@@ -30,27 +70,56 @@ function getRecetas(tipoReceta: string, handleMaximizedMode: (x: IReceta) => voi
         }
     }
 
+    //    recipes.keys().filter(nombre => nombre.endsWith('.json')).map((recipe, index) => {
+    //        return (
+    //            <Grid key={index} item md={4} lg={3} xl={2}>
+    //                <Receta expanded={false} filename={recipe} recipe={null} tipoReceta={tipoReceta} handleMaximizedMode={handleMaximizedMode} viewOnly={false} />
+    //            </Grid>
+    //        );
+    //    })
+
     return (
         <div>
             <Grid container spacing={2} >
                 {
-                    recipes.keys().filter(nombre => nombre.endsWith('.json')).map((recipe, index) => {
+                    recipes.keys().filter(nombre => nombre.endsWith('.json')).filter(nombre => nombre.toUpperCase().includes(nameFilter)).map((recipe, index) => {
                         return (
                             <Grid key={index} item md={4} lg={3} xl={2}>
-                                <Receta expanded={false} filename={recipe} recipe={null} tipoReceta={tipoReceta} handleMaximizedMode={handleMaximizedMode} />
+                                <Receta expanded={false} filename={recipe} recipe={null} tipoReceta={tipoReceta} handleMaximizedMode={handleMaximizedMode}
+                                    viewOnly={false}
+                                    ingredientFilter={ingredientFilter}
+                                    timeFilter={timeFilter}
+                                />
                             </Grid>
                         );
-                    })}
+                    })
+                }
             </Grid>
         </div>
     );
 }
 
-export default function Home() {
+function Home() {
     const [recipeType, setRecipeType] = useState("comidas");
     const [newRecipe, setNewRecipe] = useState(false);
     const [maximizedRecipe, setMaximizedRecipe] = useState<IReceta | null>(null);
     const [showFilter, setShowFilter] = useState(false);
+    const [nameFilter, setNameFilter] = useState("");
+    const [ingredientFilter, setIngredientFilter] = useState("");
+    const [timeFilter, setTimeFilter] = useState(9999);
+
+    function handleNameFilter(nameFilter: string) {
+        console.log('****** ENTRA EN SET NAME *********')
+        setNameFilter(nameFilter.toUpperCase());
+    }
+
+    function handleIngredientFilter(ingredientFilter: string) {
+        setIngredientFilter(ingredientFilter.toUpperCase());
+    }
+
+    function handleTimeFilter(timeFilter: number) {
+        setTimeFilter(timeFilter);
+    }
 
     function handleEditMode() {
         setNewRecipe(!newRecipe);
@@ -75,7 +144,7 @@ export default function Home() {
                 :
                 <main className="flex flex-col justify-between p-2">
                     <div className='flex justify-between'>
-                        <Grid container spacing={2} sx={{marginLeft:'0px'}}>
+                        <Grid container spacing={2} sx={{ marginLeft: '0px' }}>
                             <Grid item md={6} lg={5} xl={8}>
                                 <TipoComida recipeType={recipeType} handleRecipeType={handleRecipeType} />
                             </Grid>
@@ -99,14 +168,15 @@ export default function Home() {
                                     Añadir Receta
                                 </Button>
                             </Grid>
-                            <Grid  md={12} xl={12}>
-                                {showFilter && <Filtro />}
+                            <Grid md={12} xl={12}>
+                                {showFilter && <Filtro handleNameFilter={handleNameFilter} handleIngredientFilter={handleIngredientFilter}
+                                    handleTimeFilter={handleTimeFilter} />}
                             </Grid>
                         </Grid>
                     </div>
                     <div  >
                         {(maximizedRecipe === null)
-                            ? getRecetas(recipeType, handleMaximizedMode)
+                            ? getRecetas(recipeType, nameFilter, ingredientFilter, timeFilter, handleMaximizedMode)
                             : <RecetaMaximized tipoReceta={recipeType} receta={maximizedRecipe} handleMaximizedMode={() => handleMaximizedMode(null)} />
                         }
                     </div>

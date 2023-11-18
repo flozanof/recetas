@@ -33,7 +33,7 @@ export default function RecetaMaximized(props: IRecipeProps) {
                 PaperProps={{ sx: { boxShadow: '0px 3px 3px -2px #bdbdbd, 0px 3px 4px 0px #bdbdbd, 0px 1px 8px 0px #bdbdbd' } }}
             >
                 <DialogContent className='form' sx={{ backgroundColor: '#0e101c', boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff' }} >
-                <Receta tipoReceta={props.tipoReceta} expanded={true} filename='' recipe={props.receta} handleMaximizedMode={props.handleMaximizedMode}/>
+                <Receta tipoReceta={props.tipoReceta} expanded={true} filename='' recipe={props.receta} handleMaximizedMode={props.handleMaximizedMode} viewOnly={false} />
                 </DialogContent>
             </Dialog>
         );

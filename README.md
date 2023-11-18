@@ -45,3 +45,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Leer ficheros recetas directorio
 Instalar paquete webpack como dependencia dev.
 - npm install --save @types/webpack-env
+
+## Acceder como invitado a ver una receta
+/receta?tipoReceta=comidas&receta=AlitasSojaMiel

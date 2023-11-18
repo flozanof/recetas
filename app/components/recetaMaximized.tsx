@@ -11,6 +11,7 @@ import Receta from './receta';
 interface IRecipeProps {
     tipoReceta: string;
     receta: IReceta | null;
+    viewOnly: boolean;
     handleMaximizedMode: () => void;
 }
 
@@ -34,7 +35,8 @@ export default function RecetaMaximized(props: IRecipeProps) {
             >
                 <DialogContent className='form' sx={{ backgroundColor: '#0e101c', boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff' }} >
                     <Receta tipoReceta={props.tipoReceta} expanded={true} filename='' recipe={props.receta} handleMaximizedMode={props.handleMaximizedMode}
-                        viewOnly={false}
+                        viewOnly={props.viewOnly}
+                        oneRecipe={false}
                         ingredientFilter=""
                         timeFilter={9999}
                     />

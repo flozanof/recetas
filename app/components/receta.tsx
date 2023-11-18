@@ -30,6 +30,7 @@ interface RecipeProps {
     expanded: boolean;
     tipoReceta: string;
     viewOnly: boolean;
+    oneRecipe: boolean;
     ingredientFilter: string;
     timeFilter: number;
     handleMaximizedMode: (x: IReceta) => void;
@@ -92,10 +93,9 @@ export default function Receta(props: RecipeProps) {
                     return response.json();
                 })
                 .then(function (myJson: IReceta) {
-                    if (  ((props.ingredientFilter == "") ||
-                           (myJson.IngredientesGrupo?.flatMap(g => g.Ingredientes).map(e => e?.Nombre).some(i => i?.toUpperCase().includes(props.ingredientFilter)))) && 
-                           (myJson.TiempoElaboracion! <= props.timeFilter) )
-                    {
+                    if (((props.ingredientFilter == "") ||
+                        (myJson.IngredientesGrupo?.flatMap(g => g.Ingredientes).map(e => e?.Nombre).some(i => i?.toUpperCase().includes(props.ingredientFilter)))) &&
+                        (myJson.TiempoElaboracion! <= props.timeFilter)) {
                         setReceta(myJson);
                     } else {
                         setReceta(null);
@@ -151,15 +151,13 @@ export default function Receta(props: RecipeProps) {
                         <CardContent style={styles.cardContent}>
                         </CardContent>
                         <CardActions disableSpacing style={styles.cardAction}>
-                            {!props.viewOnly
-                                && <IconButton aria-label="expand contents" onClick={() => props.handleMaximizedMode(receta)} hidden={props.viewOnly} >
-                                    {
-                                        (props.recipe === null)
-                                            ? <FullscreenIcon />
-                                            : <FullscreenExitIcon />
-                                    }
-                                </IconButton>
-                            }
+                            <IconButton aria-label="expand contents" onClick={() => props.handleMaximizedMode(receta)} hidden={props.oneRecipe} >
+                                {
+                                    (props.recipe === null)
+                                        ? <FullscreenIcon />
+                                        : <FullscreenExitIcon />
+                                }
+                            </IconButton>
                             <ExpandMore
                                 expand={expanded}
                                 onClick={handleExpandClick}

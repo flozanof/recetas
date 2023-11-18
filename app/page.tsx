@@ -15,6 +15,9 @@ import RecetaMaximized from './components/recetaMaximized';
 import TipoComida from './components/seleccionTipoComida'
 import Filtro from './components/filtro'
 
+interface IPropsHome {
+    admin: boolean;
+}
 
 function UnaReceta() {
     const searchParams = useSearchParams()
@@ -23,7 +26,8 @@ function UnaReceta() {
     return (
         <Receta expanded={true} filename={receta + '.json'} recipe={null} tipoReceta={(tipoReceta != null) ? tipoReceta : "comidas"}
             handleMaximizedMode={() => { }}
-            viewOnly={false}
+            viewOnly={true}
+            oneRecipe={true}
             ingredientFilter=""
             timeFilter={9999}
         />
@@ -34,14 +38,30 @@ function UnaReceta() {
 export default function Main() {
     const searchParams = useSearchParams();
     const tipoReceta = searchParams.get('tipoReceta');
-    const receta = searchParams.get('receta');
+    const usr = searchParams.get('usr');
+    const auth = searchParams.get('auth');
+    let access = 'DENY';
+    if (usr === 'rct4dm1n') {
+        access = 'ADMIN';
+    } else if (auth != null) {
+        // auth es la fecha en formato yyyy-mm-dd en Base64
+        const date: Date = new Date(atob(auth));
+        const now: Date = new Date();
+        now.setHours(0,0,0,0);
+        // La resta retorna milisegundos.
+        if (((now.valueOf() - date.valueOf()) / (1000 * 60 * 60 * 24)) < 4) {
+            access = 'GUESS';
+        }
+    }
     return (
-        (tipoReceta != null) ? <UnaReceta /> : <Home />
-        
+        (access === 'DENY')
+            ? <div>NO TIENE PERMISOS PARA VER LAS RECETAS.</div>
+            : (tipoReceta != null) ? <UnaReceta /> : <Home admin={(access === 'ADMIN')} />
+
     );
 }
 
-function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: string, timeFilter: number, handleMaximizedMode: (x: IReceta) => void) {
+function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: string, timeFilter: number, admin: boolean, handleMaximizedMode: (x: IReceta) => void) {
     let recipes;
     switch (tipoReceta) {
         case "cafes": {
@@ -58,14 +78,6 @@ function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: st
         }
     }
 
-    //    recipes.keys().filter(nombre => nombre.endsWith('.json')).map((recipe, index) => {
-    //        return (
-    //            <Grid key={index} item md={4} lg={3} xl={2}>
-    //                <Receta expanded={false} filename={recipe} recipe={null} tipoReceta={tipoReceta} handleMaximizedMode={handleMaximizedMode} viewOnly={false} />
-    //            </Grid>
-    //        );
-    //    })
-
     return (
         <div>
             <Grid container spacing={2} >
@@ -74,7 +86,8 @@ function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: st
                         return (
                             <Grid key={index} item md={4} lg={3} xl={2}>
                                 <Receta expanded={false} filename={recipe} recipe={null} tipoReceta={tipoReceta} handleMaximizedMode={handleMaximizedMode}
-                                    viewOnly={false}
+                                    viewOnly={!admin}
+                                    oneRecipe={false}
                                     ingredientFilter={ingredientFilter}
                                     timeFilter={timeFilter}
                                 />
@@ -87,7 +100,7 @@ function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: st
     );
 }
 
-function Home() {
+function Home(props: IPropsHome) {
     const [recipeType, setRecipeType] = useState("comidas");
     const [newRecipe, setNewRecipe] = useState(false);
     const [maximizedRecipe, setMaximizedRecipe] = useState<IReceta | null>(null);
@@ -146,14 +159,16 @@ function Home() {
                                 </Button>
                             </Grid>
                             <Grid item md={3} lg={3} xl={2}>
-                                <Button
-                                    variant="outlined"
-                                    startIcon={<AddIcon />}
-                                    sx={{ marginTop: '5px', marginBottom: '25px', maxWidth: '180px' }}
-                                    onClick={() => { handleEditMode() }}
-                                >
-                                    Añadir Receta
-                                </Button>
+                                {props.admin &&
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={<AddIcon />}
+                                        sx={{ marginTop: '5px', marginBottom: '25px', maxWidth: '180px' }}
+                                        onClick={() => { handleEditMode() }}
+                                    >
+                                        Añadir Receta
+                                    </Button>
+                                }
                             </Grid>
                             <Grid item md={12} xl={12}>
                                 {showFilter && <Filtro handleNameFilter={handleNameFilter} handleIngredientFilter={handleIngredientFilter}
@@ -163,8 +178,8 @@ function Home() {
                     </div>
                     <div  >
                         {(maximizedRecipe === null)
-                            ? getRecetas(recipeType, nameFilter, ingredientFilter, timeFilter, handleMaximizedMode)
-                            : <RecetaMaximized tipoReceta={recipeType} receta={maximizedRecipe} handleMaximizedMode={() => handleMaximizedMode(null)} />
+                            ? getRecetas(recipeType, nameFilter, ingredientFilter, timeFilter, props.admin, handleMaximizedMode)
+                            : <RecetaMaximized tipoReceta={recipeType} receta={maximizedRecipe} viewOnly={!props.admin} handleMaximizedMode={() => handleMaximizedMode(null)} />
                         }
                     </div>
                 </main>

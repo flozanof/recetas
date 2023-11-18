@@ -26,7 +26,7 @@ function UnaReceta() {
             handleMaximizedMode={() => { }}
             viewOnly={false}
             ingredientFilter=""
-            timeFilter=""
+            timeFilter={0}
         />
     )
 }
@@ -53,7 +53,7 @@ export default function Main() {
     );
 }
 
-function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: string, timeFilter: string, handleMaximizedMode: (x: IReceta) => void) {
+function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: string, timeFilter: number, handleMaximizedMode: (x: IReceta) => void) {
     let recipes;
     switch (tipoReceta) {
         case "cafes": {

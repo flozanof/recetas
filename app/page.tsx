@@ -18,7 +18,6 @@ import Filtro from './components/filtro'
 
 function UnaReceta() {
     const searchParams = useSearchParams()
-    const search = searchParams.get('search')
     const tipoReceta = searchParams.get('tipoReceta');
     const receta = searchParams.get('receta');
     return (
@@ -33,23 +32,12 @@ function UnaReceta() {
 
 
 export default function Main() {
+    const searchParams = useSearchParams();
+    const tipoReceta = searchParams.get('tipoReceta');
+    const receta = searchParams.get('receta');
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/receta" element={<UnaReceta />} />
-                <Route
-                    path="*"
-                    element={
-                        <main style={{ padding: "1rem" }}>
-                            <p>Bad URL</p>
-                            <p>http://host:port/:enterpriseCode</p>
-                            <p>Example: localhost:3000/MPT</p>
-                        </main>
-                    }
-                />
-            </Routes>
-        </BrowserRouter>
+        (tipoReceta != null) ? <UnaReceta /> : <Home />
+        
     );
 }
 

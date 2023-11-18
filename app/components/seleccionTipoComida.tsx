@@ -29,7 +29,6 @@ export default function TipoComida(props: ITipoComidaProps) {
     newTipoComida: string,
   ) => {
     if (newTipoComida !== null) {
-      console.log('TIPO COMIDA CHANGE: ' + newTipoComida);
       props.handleRecipeType(newTipoComida);
       setTipoComida(newTipoComida);
     }

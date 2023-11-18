@@ -79,7 +79,6 @@ export default function Receta(props: RecipeProps) {
 
     // Recuperamos información del cocinero de la API si no viene en las propiedades.
     useEffect(() => {
-        console.log('recetas/' + props.tipoReceta + '/' + props.filename);
         if (props.recipe === null) {
             fetch('recetas/' + props.tipoReceta + '/' + props.filename
                 , {
@@ -95,10 +94,8 @@ export default function Receta(props: RecipeProps) {
                 .then(function (myJson: IReceta) {
                     if ((props.ingredientFilter == "") ||
                         (myJson.IngredientesGrupo?.flatMap(g => g.Ingredientes).map(e => e?.Nombre).some(i => i?.toUpperCase().includes(props.ingredientFilter)))) {
-                        console.log("*********** CARGA RECETA EN ESTADO: " + myJson.Nombre);
                         setReceta(myJson);
                     } else {
-                        console.log("*********** INGREDIENTE: " + props.ingredientFilter);
                         setReceta(null);
                     }
                     setRecipeLoaded(true);

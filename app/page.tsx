@@ -97,7 +97,6 @@ function Home() {
     const [timeFilter, setTimeFilter] = useState(9999);
 
     function handleNameFilter(nameFilter: string) {
-        console.log('****** ENTRA EN SET NAME *********')
         setNameFilter(nameFilter.toUpperCase());
     }
 
@@ -156,7 +155,7 @@ function Home() {
                                     Añadir Receta
                                 </Button>
                             </Grid>
-                            <Grid md={12} xl={12}>
+                            <Grid item md={12} xl={12}>
                                 {showFilter && <Filtro handleNameFilter={handleNameFilter} handleIngredientFilter={handleIngredientFilter}
                                     handleTimeFilter={handleTimeFilter} />}
                             </Grid>

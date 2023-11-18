@@ -92,8 +92,10 @@ export default function Receta(props: RecipeProps) {
                     return response.json();
                 })
                 .then(function (myJson: IReceta) {
-                    if ((props.ingredientFilter == "") ||
-                        (myJson.IngredientesGrupo?.flatMap(g => g.Ingredientes).map(e => e?.Nombre).some(i => i?.toUpperCase().includes(props.ingredientFilter)))) {
+                    if (  ((props.ingredientFilter == "") ||
+                           (myJson.IngredientesGrupo?.flatMap(g => g.Ingredientes).map(e => e?.Nombre).some(i => i?.toUpperCase().includes(props.ingredientFilter)))) && 
+                           (myJson.TiempoElaboracion! <= props.timeFilter) )
+                    {
                         setReceta(myJson);
                     } else {
                         setReceta(null);
@@ -104,7 +106,7 @@ export default function Receta(props: RecipeProps) {
             setReceta(props.recipe);
             setRecipeLoaded(true);
         }
-    }, [props.filename, props.recipe, props.tipoReceta, props.ingredientFilter]);
+    }, [props.filename, props.recipe, props.tipoReceta, props.ingredientFilter, props.timeFilter]);
 
     function handleEditMode() {
         setEditMode(!editMode);

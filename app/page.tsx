@@ -25,7 +25,7 @@ function UnaReceta() {
             handleMaximizedMode={() => { }}
             viewOnly={false}
             ingredientFilter=""
-            timeFilter={0}
+            timeFilter={9999}
         />
     )
 }
@@ -105,7 +105,7 @@ function Home() {
     }
 
     function handleTimeFilter(timeFilter: number) {
-        setTimeFilter(timeFilter);
+        setTimeFilter((timeFilter == 0) ? 9999 : timeFilter);
     }
 
     function handleEditMode() {

@@ -36,7 +36,7 @@ export default function RecetaMaximized(props: IRecipeProps) {
                     <Receta tipoReceta={props.tipoReceta} expanded={true} filename='' recipe={props.receta} handleMaximizedMode={props.handleMaximizedMode}
                         viewOnly={false}
                         ingredientFilter=""
-                        timeFilter={0}
+                        timeFilter={9999}
                     />
                 </DialogContent>
             </Dialog>

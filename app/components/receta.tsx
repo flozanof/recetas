@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -116,6 +117,7 @@ export default function Receta(props: RecipeProps) {
     function getRecipeUrl() {
         // auth es la fecha en formato yyyy-mm-dd en Base64
         const now: Date = new Date();
+        //btoa: coonvierte a base64
         const auth = btoa(now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate());
         //        http://localhost:3000/receta?tipoReceta=comidas&receta=AlitasSojaMiel&auth=MjAyMy0xMS0xOA==
         const url = window.location.origin + '/receta/?tipoReceta=' + props.tipoReceta + '&receta=' +
@@ -131,80 +133,83 @@ export default function Receta(props: RecipeProps) {
     if (recipeLoaded) {
         return (
             receta != null &&
-            <div >
+            <>
                 {editMode
                     ? <RecetaForm mode="U" fileNameRecipe="ContramuslosPolloSoja.json" receta={receta} handleEditMode={() => handleEditMode()} />
                     :
+
                     //                <Card sx={{ maxWidth: 345 }}>
-                    <Card >
-                        <CardHeader
-                            //                        avatar={
-                            //                            <Avatar sx={{ width: 0, height: 15, bgcolor: red[500], visibility: 'hidden' }} />
-                            //                        }
-                            action={
-                                !props.viewOnly
-                                && <IconButton style={styles.smallIcon} aria-label="settings" onClick={handleEditMode} >
-                                    <EditIcon style={styles.smallIcon} />
-                                </IconButton>
-                            }
-                            title={
-                                <span style={{ fontSize: "0.875rem", fontWeight: 400, lineHeight: 1.43, letterSpacing: "0.010em", display: "block" }}>
-                                    {receta.Nombre}
-                                </span>
-                            }
-                        //subheader="SUBHEADER: Time: 40 min. Dificultad: Media"
-                        />
-                        <CardMedia
-                            component="img"
-                            style={props.expanded ? styles.styleImageMaximized : styles.styleImage}
-                            image={"imagenes/" + props.tipoReceta + "/" + receta.Foto}
-                            alt="Foto receta"
-                        />
-                        <CardContent style={styles.cardContent}>
-                        </CardContent>
-                        <CardActions disableSpacing style={styles.cardAction}>
-                            <IconButton aria-label="expand contents" onClick={() => props.handleMaximizedMode(receta)} hidden={props.oneRecipe} >
-                                {
-                                    (props.recipe === null)
-                                        ? <FullscreenIcon fontSize="small" />
-                                        : <FullscreenExitIcon fontSize="small" />
+                    <Grid item md={4} lg={3} xl={2}>
+                        <Card >
+                            <CardHeader
+                                //                        avatar={
+                                //                            <Avatar sx={{ width: 0, height: 15, bgcolor: red[500], visibility: 'hidden' }} />
+                                //                        }
+                                action={
+                                    !props.viewOnly
+                                    && <IconButton style={styles.smallIcon} aria-label="settings" onClick={handleEditMode} >
+                                        <EditIcon style={styles.smallIcon} />
+                                    </IconButton>
                                 }
-                            </IconButton>
-                            <IconButton aria-label="expand contents" onClick={() => { navigator.clipboard.writeText(getRecipeUrl()) }} hidden={props.viewOnly || props.expanded} >
-                                <ShareIcon fontSize="small" />
-                            </IconButton>
-                            <ExpandMore
-                                expand={expanded}
-                                onClick={handleExpandClick}
-                                aria-expanded={expanded}
-                                aria-label="show more"
-                            >
-                                <ExpandMoreIcon />
-                            </ExpandMore>
-                        </CardActions>
-                        <Collapse in={expanded} timeout="auto" unmountOnExit>
-                            <CardContent>
-                                <ul>
-                                    <li className="flex flex-row items-center justify-between" >
-                                        <div>
-                                            <Typography variant="body2" color="text.secondary">Comensales: {receta.Comensales}</Typography>
-                                        </div>
-                                        <div>
-                                            <Typography variant="body2" color="text.secondary">Dificultad: {receta.Dificultad}</Typography>
-                                        </div>
-                                    </li>
-                                    <li><Typography variant="body2" color="text.secondary">Tiempo elaboración: {receta.TiempoElaboracion} minutos</Typography></li>
-                                    <li><Typography variant="body2" color="text.secondary">Tiempo cocción: {receta.TiempoCoccion} minutos</Typography></li>
-                                    <li><Typography variant="body2" color="text.secondary">Técnica elaboración: {receta.TecnicaElaboracion}</Typography></li>
-                                </ul>
-                                <Ingrediente grpIng={receta.IngredientesGrupo} />
-                                <Elaboracion elaboracion={receta.Elaboracion} />
-                                <Nota nota={receta.Notas} />
+                                title={
+                                    <span style={{ fontSize: "0.875rem", fontWeight: 400, lineHeight: 1.43, letterSpacing: "0.010em", display: "block" }}>
+                                        {receta.Nombre}
+                                    </span>
+                                }
+                            //subheader="SUBHEADER: Time: 40 min. Dificultad: Media"
+                            />
+                            <CardMedia
+                                component="img"
+                                style={props.expanded ? styles.styleImageMaximized : styles.styleImage}
+                                image={"imagenes/" + props.tipoReceta + "/" + receta.Foto}
+                                alt="Foto receta"
+                            />
+                            <CardContent style={styles.cardContent}>
                             </CardContent>
-                        </Collapse>
-                    </Card>
+                            <CardActions disableSpacing style={styles.cardAction}>
+                                <IconButton aria-label="expand contents" onClick={() => props.handleMaximizedMode(receta)} hidden={props.oneRecipe} >
+                                    {
+                                        (props.recipe === null)
+                                            ? <FullscreenIcon fontSize="small" />
+                                            : <FullscreenExitIcon fontSize="small" />
+                                    }
+                                </IconButton>
+                                <IconButton aria-label="expand contents" onClick={() => { navigator.clipboard.writeText(getRecipeUrl()) }} hidden={props.viewOnly || props.expanded} >
+                                    <ShareIcon fontSize="small" />
+                                </IconButton>
+                                <ExpandMore
+                                    expand={expanded}
+                                    onClick={handleExpandClick}
+                                    aria-expanded={expanded}
+                                    aria-label="show more"
+                                >
+                                    <ExpandMoreIcon />
+                                </ExpandMore>
+                            </CardActions>
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <CardContent>
+                                    <ul>
+                                        <li className="flex flex-row items-center justify-between" >
+                                            <div>
+                                                <Typography variant="body2" color="text.secondary">Comensales: {receta.Comensales}</Typography>
+                                            </div>
+                                            <div>
+                                                <Typography variant="body2" color="text.secondary">Dificultad: {receta.Dificultad}</Typography>
+                                            </div>
+                                        </li>
+                                        <li><Typography variant="body2" color="text.secondary">Tiempo elaboración: {receta.TiempoElaboracion} minutos</Typography></li>
+                                        <li><Typography variant="body2" color="text.secondary">Tiempo cocción: {receta.TiempoCoccion} minutos</Typography></li>
+                                        <li><Typography variant="body2" color="text.secondary">Técnica elaboración: {receta.TecnicaElaboracion}</Typography></li>
+                                    </ul>
+                                    <Ingrediente grpIng={receta.IngredientesGrupo} />
+                                    <Elaboracion elaboracion={receta.Elaboracion} />
+                                    <Nota nota={receta.Notas} />
+                                </CardContent>
+                            </Collapse>
+                        </Card>
+                    </Grid>
                 }
-            </div>
+            </>
         );
     } else {
         return <RecetaLoading />

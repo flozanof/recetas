@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
 import { useState } from 'react';
-import { Route, Router, Routes, BrowserRouter } from 'react-router-dom';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Receta from "./components/receta";
 import AddIcon from '@mui/icons-material/Add';
 import TuneIcon from '@mui/icons-material/Tune';
@@ -47,7 +46,7 @@ export default function Main() {
         // auth es la fecha en formato yyyy-mm-dd en Base64
         const date: Date = new Date(atob(auth));
         const now: Date = new Date();
-        now.setHours(0,0,0,0);
+        now.setHours(0, 0, 0, 0);
         // La resta retorna milisegundos.
         if (((now.valueOf() - date.valueOf()) / (1000 * 60 * 60 * 24)) < 4) {
             access = 'GUESS';
@@ -84,14 +83,12 @@ function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: st
                 {
                     recipes.keys().filter(nombre => nombre.endsWith('.json')).filter(nombre => nombre.toUpperCase().includes(nameFilter)).map((recipe, index) => {
                         return (
-                            <Grid key={index} item md={4} lg={3} xl={2}>
-                                <Receta expanded={false} filename={recipe} recipe={null} tipoReceta={tipoReceta} handleMaximizedMode={handleMaximizedMode}
-                                    viewOnly={!admin}
-                                    oneRecipe={false}
-                                    ingredientFilter={ingredientFilter}
-                                    timeFilter={timeFilter}
-                                />
-                            </Grid>
+                            <Receta key={index} expanded={false} filename={recipe} recipe={null} tipoReceta={tipoReceta} handleMaximizedMode={handleMaximizedMode}
+                                viewOnly={!admin}
+                                oneRecipe={false}
+                                ingredientFilter={ingredientFilter}
+                                timeFilter={timeFilter}
+                            />
                         );
                     })
                 }

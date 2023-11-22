@@ -24,7 +24,9 @@ export default function Ingrediente(props: {
                                             <div key={index}>
                                                 <li key={index}>
                                                     <Typography paragraph variant="body2">
-                                                        {ingrediente.Nombre} ({ingrediente.Cantidad} {ingrediente.Unidad})
+                                                        {ingrediente.Nombre} {(ingrediente.Cantidad != null) ? '(' : ''} 
+                                                        {ingrediente.Cantidad} {ingrediente.Unidad}
+                                                        {(ingrediente.Cantidad != null) ? ')' : ''} 
                                                     </Typography>
                                                 </li>
                                                 {/*

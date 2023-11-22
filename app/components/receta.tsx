@@ -8,6 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import ShareIcon from '@mui/icons-material/Share';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditIcon from '@mui/icons-material/Edit';
@@ -112,6 +113,17 @@ export default function Receta(props: RecipeProps) {
         setEditMode(!editMode);
     }
 
+    function getRecipeUrl() {
+        // auth es la fecha en formato yyyy-mm-dd en Base64
+        const now: Date = new Date();
+        const auth = btoa(now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate());
+        //        http://localhost:3000/receta?tipoReceta=comidas&receta=AlitasSojaMiel&auth=MjAyMy0xMS0xOA==
+        const url = window.location.origin + '/receta/?tipoReceta=' + props.tipoReceta + '&receta=' +
+            props.filename.replace('.json', '').replace('./', '') +
+            '&auth=' + auth;
+        return url;
+    }
+
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -154,9 +166,12 @@ export default function Receta(props: RecipeProps) {
                             <IconButton aria-label="expand contents" onClick={() => props.handleMaximizedMode(receta)} hidden={props.oneRecipe} >
                                 {
                                     (props.recipe === null)
-                                        ? <FullscreenIcon />
-                                        : <FullscreenExitIcon />
+                                        ? <FullscreenIcon fontSize="small" />
+                                        : <FullscreenExitIcon fontSize="small" />
                                 }
+                            </IconButton>
+                            <IconButton aria-label="expand contents" onClick={() => { navigator.clipboard.writeText(getRecipeUrl()) }} hidden={props.viewOnly || props.expanded} >
+                                <ShareIcon fontSize="small" />
                             </IconButton>
                             <ExpandMore
                                 expand={expanded}

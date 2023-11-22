@@ -1,3 +1,5 @@
+# Read Me
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -36,15 +38,18 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ## Creación del proyecto
-- Librerías, plugins...
-    - TailwWind CSS
-    - Eslind
-    - App Router
 
+- Librerías, plugins...
+  - TailwWind CSS
+  - Eslind
+  - App Router
 
 ## Leer ficheros recetas directorio
+
 Instalar paquete webpack como dependencia dev.
+
 - npm install --save @types/webpack-env
 
 ## Acceder como invitado a ver una receta
+
 /receta?tipoReceta=comidas&receta=AlitasSojaMiel

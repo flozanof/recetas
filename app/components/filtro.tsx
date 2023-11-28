@@ -16,7 +16,7 @@ export default function Filtro(props: FilterProps) {
     <div className='flex justify-between'>
       <Grid container spacing={2} >
         <Grid item xs={12} sm={4} md={4} lg={3} xl={3} >
-          <input type="text" placeholder="Nombre receta"
+          <input autoFocus type="text" placeholder="Nombre receta"
             style={{ backgroundColor: '#0e101c', boxShadow: '0px 3px 3px -2px #fff, 0px 3px 4px 0px #fff, 0px 1px 8px 0px #fff' }}
             onChange={(e) => props.handleNameFilter(e.target.value)} />
         </Grid>

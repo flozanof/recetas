@@ -13,6 +13,8 @@ import { IReceta } from './interfaces/Types';
 import RecetaMaximized from './components/recetaMaximized';
 import TipoComida from './components/seleccionTipoComida'
 import Filtro from './components/filtro'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface IPropsHome {
     admin: boolean;
@@ -40,8 +42,11 @@ export default function Main() {
     const usr = searchParams.get('usr');
     const auth = searchParams.get('auth');
     let access = 'DENY';
-    if (usr === 'rct4dm1n') {
+    if (usr === '_s4t3c3rR0t') {
         access = 'ADMIN';
+    } else if (usr === 'rct4dm1n') {
+        // Acceso como invitado con tiempo ilimitado.
+        access = 'GUESS';
     } else if (auth != null) {
         // auth es la fecha en formato yyyy-mm-dd en Base64
         const date: Date = new Date(atob(auth));
@@ -63,12 +68,16 @@ export default function Main() {
 function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: string, timeFilter: number, admin: boolean, handleMaximizedMode: (x: IReceta) => void) {
     let recipes;
     switch (tipoReceta) {
-        case "cafes": {
-            recipes = require.context('../public/recetas/cafes', false);
+        case "otros": {
+            recipes = require.context('../public/recetas/otros', false);
             break;
         }
         case "postres": {
             recipes = require.context('../public/recetas/postres', false);
+            break;
+        }
+        case "entrantes": {
+            recipes = require.context('../public/recetas/entrantes', false);
             break;
         }
         default: {
@@ -136,6 +145,9 @@ function Home(props: IPropsHome) {
 
     return (
         <>
+            <div>
+                <ToastContainer />
+            </div>
             {newRecipe
                 ? <RecetaForm mode="U" fileNameRecipe="Receta.json" receta={nuevaReceta} handleEditMode={() => handleEditMode()} />
                 :

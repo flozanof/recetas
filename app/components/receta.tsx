@@ -21,6 +21,8 @@ import Ingrediente from './ingrediente';
 import Elaboracion from './elaboracion';
 import Nota from './nota';
 import RecetaLoading from './recetaLoading';
+import CloseIcon from '@mui/icons-material/Close';
+import { toast } from 'react-toastify';
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -146,10 +148,27 @@ export default function Receta(props: RecipeProps) {
                                 //                            <Avatar sx={{ width: 0, height: 15, bgcolor: red[500], visibility: 'hidden' }} />
                                 //                        }
                                 action={
-                                    !props.viewOnly
-                                    && <IconButton style={styles.smallIcon} aria-label="settings" onClick={handleEditMode} >
-                                        <EditIcon style={styles.smallIcon} />
-                                    </IconButton>
+                                    <>
+                                        <>
+                                            {
+                                                !props.viewOnly
+                                                &&
+                                                <IconButton style={styles.smallIcon} aria-label="settings" onClick={handleEditMode} >
+                                                    <EditIcon style={styles.smallIcon} />
+                                                </IconButton>
+                                            }
+                                        </>
+                                        <>
+                                            {
+                                                (props.recipe === null) ||
+                                                <>
+                                                    <IconButton style={styles.smallIcon} aria-label="settings" onClick={() => props.handleMaximizedMode(receta)}  >
+                                                        <CloseIcon fontSize="small" />
+                                                    </IconButton>
+                                                </>
+                                            }
+                                        </>
+                                    </>
                                 }
                                 title={
                                     <span style={{ fontSize: "0.875rem", fontWeight: 400, lineHeight: 1.43, letterSpacing: "0.010em", display: "block" }}>
@@ -174,7 +193,7 @@ export default function Receta(props: RecipeProps) {
                                             : <FullscreenExitIcon fontSize="small" />
                                     }
                                 </IconButton>
-                                <IconButton aria-label="expand contents" onClick={() => { navigator.clipboard.writeText(getRecipeUrl()) }} hidden={props.viewOnly || props.expanded} >
+                                <IconButton aria-label="expand contents" onClick={() => { navigator.clipboard.writeText(getRecipeUrl()); toast.success("¡Receta copiada al portapapeles!"); }} hidden={props.viewOnly || props.expanded} >
                                     <ShareIcon fontSize="small" />
                                 </IconButton>
                                 <ExpandMore
@@ -207,7 +226,7 @@ export default function Receta(props: RecipeProps) {
                                 </CardContent>
                             </Collapse>
                         </Card>
-                    </Grid>
+                    </Grid >
                 }
             </>
         );

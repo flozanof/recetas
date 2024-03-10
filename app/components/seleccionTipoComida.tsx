@@ -43,9 +43,10 @@ export default function TipoComida(props: ITipoComidaProps) {
       aria-label="Platform"
       sx={{ marginBottom: '10px', padding: '5px 15px' }} 
     >
-      <ToggleButton value="comidas">Comida</ToggleButton>
-      <ToggleButton value="postres">Postre</ToggleButton>
-      <ToggleButton value="cafes">Cafés e infusiones</ToggleButton>
+      <ToggleButton value="entrantes">Entrantes</ToggleButton>
+      <ToggleButton value="comidas">Comidas</ToggleButton>
+      <ToggleButton value="postres">Postres</ToggleButton>
+      <ToggleButton value="otros">Otros</ToggleButton>
     </ToggleButtonGroup>
   );
 }

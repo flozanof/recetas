@@ -41,7 +41,7 @@ export default function TipoComida(props: ITipoComidaProps) {
       exclusive
       onChange={handleChange}
       aria-label="Platform"
-      sx={{ marginBottom: '10px', padding: '5px 15px' }} 
+      sx={{ marginBottom: '10px', padding: '0px 0px' }} 
     >
       <ToggleButton value="entrantes">Entrantes</ToggleButton>
       <ToggleButton value="comidas">Comidas</ToggleButton>

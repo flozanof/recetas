@@ -42,6 +42,9 @@ export default function Main() {
     const usr = searchParams.get('usr');
     const auth = searchParams.get('auth');
     let access = 'DENY';
+    console.log("searchParams: " + searchParams);
+    console.log("tipoReceta: " + tipoReceta);
+    console.log("receta: " + searchParams.get('receta'));
     console.log("usr: " + usr);
     console.log("auth: " + auth);
     if (usr === '_s4t3c3rR0t') {

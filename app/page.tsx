@@ -42,6 +42,8 @@ export default function Main() {
     const usr = searchParams.get('usr');
     const auth = searchParams.get('auth');
     let access = 'DENY';
+    console.log("usr: " + usr);
+    console.log("auth: " + auth);
     if (usr === '_s4t3c3rR0t') {
         access = 'ADMIN';
     } else if (usr === 'rct4dm1n') {

@@ -48,6 +48,7 @@ const styles = {
     },
 
     styleImage: {
+        minWidth: 300,
         height: 170,
     },
 

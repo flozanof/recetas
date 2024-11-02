@@ -1,8 +1,9 @@
 'use client';
 import React from 'react';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Receta from "./components/receta";
+import RecetaLoading from './components/recetaLoading';
 import AddIcon from '@mui/icons-material/Add';
 import TuneIcon from '@mui/icons-material/Tune';
 import Button from '@mui/material/Button';
@@ -20,12 +21,14 @@ interface IPropsHome {
     admin: boolean;
 }
 
-function UnaReceta() {
-    const searchParams = useSearchParams()
-    const tipoReceta = searchParams.get('tipoReceta');
-    const receta = searchParams.get('receta');
+interface IPropsUnaReceta {
+    tipoReceta: string | null;
+    receta: string | null;
+}
+
+function UnaReceta(props: IPropsUnaReceta) {
     return (
-        <Receta expanded={true} filename={receta + '.json'} recipe={null} tipoReceta={(tipoReceta != null) ? tipoReceta : "comidas"}
+        <Receta expanded={true} filename={props.receta + '.json'} recipe={null} tipoReceta={(props.tipoReceta != null) ? props.tipoReceta : "comidas"}
             handleMaximizedMode={() => { }}
             viewOnly={true}
             oneRecipe={true}
@@ -35,16 +38,17 @@ function UnaReceta() {
     )
 }
 
-
-export default function Main() {
+function Principal() {
     const searchParams = useSearchParams();
     const tipoReceta = searchParams.get('tipoReceta');
+    const receta = searchParams.get('receta');
     const usr = searchParams.get('usr');
     const auth = searchParams.get('auth');
+
     let access = 'DENY';
     console.log("searchParams: " + searchParams);
     console.log("tipoReceta: " + tipoReceta);
-    console.log("receta: " + searchParams.get('receta'));
+    console.log("receta: " + receta);
     console.log("usr: " + usr);
     console.log("auth: " + auth);
     if (usr === '_s4t3c3rR0t') {
@@ -65,9 +69,18 @@ export default function Main() {
     return (
         (access === 'DENY')
             ? <div>NO TIENE PERMISOS PARA VER LAS RECETAS.</div>
-            : (tipoReceta != null) ? <UnaReceta /> : <Home admin={(access === 'ADMIN')} />
+            : (tipoReceta != null)
+                ? <UnaReceta tipoReceta={tipoReceta} receta={receta} />
+                : <Home admin={(access === 'ADMIN')} />
 
     );
+
+}
+
+export default function Main() {
+    <Suspense>
+        <Principal />
+    </Suspense>
 }
 
 function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: string, timeFilter: number, admin: boolean, handleMaximizedMode: (x: IReceta) => void) {

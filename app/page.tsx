@@ -78,9 +78,11 @@ function Principal() {
 }
 
 export default function Main() {
-    <Suspense>
+    return (
+        <Suspense fallback={<p>Cargando contenido</p>}>
         <Principal />
-    </Suspense>
+        </Suspense>
+    );
 }
 
 function getRecetas(tipoReceta: string, nameFilter: string, ingredientFilter: string, timeFilter: number, admin: boolean, handleMaximizedMode: (x: IReceta) => void) {

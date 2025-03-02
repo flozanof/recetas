@@ -58,11 +58,13 @@ function Principal() {
         access = 'GUESS';
     } else if (auth != null) {
         // auth es la fecha en formato yyyy-mm-dd en Base64
-        const date: Date = new Date(atob(auth));
+        const dateDecoded64: String = atob(auth);
+        const [year, month, day] = dateDecoded64.split('-');
+        const paramDateInt = parseInt(year + month + day, 10);
         const now: Date = new Date();
-        now.setHours(0, 0, 0, 0);
-        // La resta retorna milisegundos.
-        if (((now.valueOf() - date.valueOf()) / (1000 * 60 * 60 * 24)) < 4) {
+        const nowDateInt = parseInt('' + now.getFullYear() + (now.getMonth() + 1) + now.getDate());
+        // Tenemos acceso a la receta durante 3 días.
+        if ((nowDateInt - paramDateInt) < 4) {
             access = 'GUESS';
         }
     }

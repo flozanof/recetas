@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import { IReceta, IIngredienteGrupo, IIngrediente, IElaboracion } from '../interfaces/Types';
 import Paper from '@mui/material/Paper';
 import styled from '@mui/material/styles/styled';
-import "../css/styleForm.css";
+import "../style/styleForm.css";
 import Receta from './receta';
 
 interface IRecipeProps {

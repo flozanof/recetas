@@ -17,7 +17,7 @@ import { useForm, UseFormHandleSubmit, FieldValues, SubmitHandler } from "react-
 import RecetaFormGrupoIngr from "./recetaFormGrupoIngr";
 import RecetaFormElaboracion from "./recetaFormElaboracion";
 import RecetaFormNotas from "./recetaFormNotas";
-import "../css/styleForm.css";
+import "../style/styleForm.css";
 
 interface IRecipeProps {
     handleEditMode: () => void;
